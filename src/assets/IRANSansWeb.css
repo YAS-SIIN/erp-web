@@ -1,0 +1,39 @@
+﻿@font-face {
+    font-family: 'IRANSansWeb';
+    src: url('IRANSansWeb.eot') format('embedded-opentype'), url('IRANSansWeb.ttf') format('truetype'), url('IRANSansWeb.woff') format('woff'), url('IRANSansWeb.woff2') format('woff2');
+}
+ 
+body {
+    font-family:IRANSansWeb !important;
+}
+
+.lbl {
+    font-family: 'IRANSansWeb' !important;
+} 
+
+button > span {
+    font-family: 'IRANSansWeb' !important;
+}
+
+input {
+    font-family: 'IRANSansWeb' !important;
+}
+
+mat-label {
+    font-family: 'IRANSansWeb' !important;
+}
+
+mat-form-field {
+    font-family: 'IRANSansWeb' !important;
+}
+
+label {
+    font-family: 'IRANSansWeb' !important;
+}
+span {
+    font-family: 'IRANSansWeb' !important;
+}
+
+button {
+        font-family: 'IRANSansWeb' !important;
+}

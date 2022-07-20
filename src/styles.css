@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/IRANSansWeb.css';
+@import './assets/material-icon.css';
+
+mat-expansion-panel-header, mat-expansion-panel-header:hover {
+    background-color: antiquewhite !important;
+}

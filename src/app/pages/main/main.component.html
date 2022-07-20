@@ -1,0 +1,63 @@
+<mat-toolbar color="primary" dir="rtl">
+  <div fxShow="true" fxHide.gt-sm="true">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <button mat-button routerLink="/" (click)="sidenav.close()">
+    <span>ERP</span>
+  </button>
+  <span class="example-spacer"></span>
+  <span flex></span>
+   <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+    </button>  
+<mat-menu #menu="matMenu">
+  <button mat-menu-item><mat-icon>build</mat-icon>تنظیمات</button>
+  <button mat-menu-item><mat-icon>lock</mat-icon>خروج</button>
+</mat-menu>
+
+</mat-toolbar>
+
+<mat-sidenav-container fxFlexFill class="sidenav-container">
+
+  <mat-sidenav color="primary" position="end" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+    <div fxLayout="column">
+
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">داشبورد</a>
+      <hr />
+   
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/Tasks">ادمین</a>
+      <hr/>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/Tasks">کارمندان</a>
+      <hr/>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">کارتابل</a>
+      <hr/>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">ورود خروج</a>
+      <hr/>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">کالا و خدمات</a>
+      <hr/>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">Item 5</a>
+      <hr/>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/app/create">Item 6</a>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/Tasks">Tasks</a>
+      <hr/>
+      <a mat-button (click)="sidenav.close(); Logout();" class="red">خروج</a>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlexFill>
+    <div class="page-wrapper"  dir="rtl">
+      <div class="container-fluid">
+        <br>
+
+        
+
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+      
+ 
+  </mat-sidenav-content>
+</mat-sidenav-container>
