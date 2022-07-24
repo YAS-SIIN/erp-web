@@ -1,0 +1,197 @@
+ 
+<mat-grid-list cols="5" rowHeight="100px">
+  <mat-grid-tile > 
+  </mat-grid-tile> 
+  <mat-grid-tile > 
+  </mat-grid-tile> 
+  
+  <mat-grid-tile class="text-center">
+    <button mat-raised-button color="primary" *ngIf="pnlFirstPage" (click)="onOpenCreateEditFormPanel()">ثبت جدید</button>
+       
+    <button mat-raised-button class="me-1 btn btn-warning" *ngIf="pnlBackForms" (click)="onBackAll()">بازگشت</button>    
+  </mat-grid-tile>
+</mat-grid-list>
+<br>
+
+<div class="row" id="pnlData" *ngIf="pnlFirstPage" class="panel">
+
+  
+  <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          اطلاعات {{title}}
+        </mat-panel-title> 
+      </mat-expansion-panel-header>
+     
+      <table mat-table matSort class="mat-elevation-z8" style="width: 100%;"  >
+          <ng-container matColumnDef="FormName">
+              <th  mat-header-cell *matHeaderCellDef> نام </th>
+              <td mat-cell *matCellDef="let formrow"> {{formrow.FormName}} </td>
+          </ng-container>  
+          <ng-container matColumnDef="Desciption">
+              <th  mat-header-cell *matHeaderCellDef> کد پرسنلی </th>
+              <td mat-cell *matCellDef="let formrow"> {{formrow.Desciption}} </td>
+          </ng-container>   
+          <ng-container  matColumnDef="Actions">
+            <th  mat-header-cell *matHeaderCellDef> عملیات </th>
+            <td mat-cell *matCellDef="let formrow">
+              <button mat-icon-button color="warn" (click)="onDelete(formrow)" aria-label="Example icon-button with a delete icon">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button (click)="onEdit(formrow)" aria-label="Example icon-button with a edit icon">
+                <mat-icon>edit</mat-icon>
+              </button> 
+              <button mat-raised-button color="primary" (click)="onCreateEditElements(formrow)" aria-label="Example icon-button with a edit icon">
+                Elements
+              </button>  
+              <button mat-raised-button color="primary" (click)="onOpenFormviewer(formrow)" aria-label="Example icon-button with a edit icon">
+                ShowForm
+              </button> 
+            </td>
+  
+          </ng-container>   
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <!-- <mat-paginator [length]="paytotalCount" [pageSize]="paginationService.pageSize" [pageSizeOptions]="paginationService.selectItemsPerPage"
+          (page)="payonPageSwitch.emit($event)">
+      </mat-paginator> -->
+  
+  </mat-expansion-panel>
+
+</div>
+
+<br>
+<div class="row" id="pnlCreateEditForm" *ngIf="pnlCreateEditForm" class="panel">
+
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            ثبت / ویرایش
+          </mat-panel-title> 
+        </mat-expansion-panel-header>
+        <form #form="ngForm" (submit)="onSubmit(form)" novalidate>
+    <div class="row">
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>نام </mat-label>
+          <input matInput [(ngModel)]="NewEmployeeModel.FirstName" maxlength="100" name="FirstName" #FirstName="ngModel" required>
+       
+          <mat-error *ngIf="!form.controls['FirstName'].valid && form.controls['FirstName'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['FirstName']" fieldDisplayName="نام"></app-validation-message>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>نام خانوادگی</mat-label>
+          <input matInput [(ngModel)]="NewEmployeeModel.LastName" maxlength="100" name="LastName" #LastName="ngModel" required>
+          <mat-error *ngIf="!form.controls['LastName'].valid && form.controls['LastName'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['LastName']" fieldDisplayName="نام خانوادگی"></app-validation-message>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+  
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>نام پدر</mat-label>
+          <input matInput [(ngModel)]="NewEmployeeModel.FatherName" maxlength="50" name="FatherName" #FatherName="ngModel" required>
+          <mat-error *ngIf="!form.controls['FatherName'].valid && form.controls['FatherName'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['FatherName']" fieldDisplayName="نام پدر"></app-validation-message>
+          </mat-error>
+        </mat-form-field>   
+      </div>
+  
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>کد ملی</mat-label>
+          <input matInput [(ngModel)]="NewEmployeeModel.NationalCode" type="number" class="ltrInput" name="NationalCode" #NationalCode="ngModel" required>
+          <mat-error *ngIf="!form.controls['NationalCode'].valid && form.controls['NationalCode'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['NationalCode']" fieldDisplayName="کد ملی"></app-validation-message>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+  
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>شماره شناسنامه</mat-label>
+          <input matInput [(ngModel)]="NewEmployeeModel.IdentifyNo" type="number" class="ltrInput" name="IdentifyNo" #IdentifyNo="ngModel" required>
+          <mat-error *ngIf="!form.controls['IdentifyNo'].valid && form.controls['IdentifyNo'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['IdentifyNo']" fieldDisplayName="شماره شناسنامه"></app-validation-message>
+          </mat-error>
+        </mat-form-field>   
+      </div>
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>تاریخ تولد</mat-label>
+          <input matInput [(ngModel)]="NewEmployeeModel.DateOfBirth" [textMask]="{mask: _sharedService.datemask}" class="ltrInput" name="DateOfBirth" #DateOfBirth="ngModel" required>
+          <mat-error *ngIf="!form.controls['DateOfBirth'].valid && form.controls['DateOfBirth'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['DateOfBirth']" fieldDisplayName="تاریخ تولد"></app-validation-message>
+          </mat-error>
+        </mat-form-field>    
+      </div>
+      
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-label>جنسیت</mat-label>
+        <br>
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="NewEmployeeModel.Gender" name="Gender" #Gender="ngModel">
+          <mat-radio-button value="0" checked="checked">مرد</mat-radio-button>
+
+          <mat-radio-button value="1">زن</mat-radio-button>  
+        </mat-radio-group>  
+      </div>
+ 
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>تاریخ استخدام</mat-label>
+          <input matInput [(ngModel)]="NewEmployeeModel.HireDate" maxlength="10" [textMask]="{mask: _sharedService.datemask}" class="ltrInput" name="HireDate" #HireDate="ngModel" required>
+          <mat-error *ngIf="!form.controls['HireDate'].valid && form.controls['HireDate'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['HireDate']" fieldDisplayName="تاریخ استخدام"></app-validation-message>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+       
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>شماره موبایل</mat-label>
+          <input matInput [(ngModel)]="NewEmployeeModel.MobileNo" type="number" class="ltrInput" name="MobileNo" #MobileNo="ngModel" required>
+          <mat-error *ngIf="!form.controls['MobileNo'].valid && form.controls['MobileNo'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['MobileNo']" fieldDisplayName="شماره موبایل"></app-validation-message>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+   
+       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>عکس پرسنلی</mat-label>
+
+              <ngx-mat-file-input [(ngModel)]="NewEmployeeModel.ImaghePath" type="file" accept=".jpg,.png" class="ltrInput" name="ImaghePath" #ImaghePath="ngModel">
+              </ngx-mat-file-input>
+
+              <mat-error *ngIf="!form.controls['ImaghePath'].valid && form.controls['ImaghePath'].touched"class="mat-text-warn">
+                <app-validation-message [control]="form.controls['ImaghePath']" fieldDisplayName="عکس پرسنلی"></app-validation-message>
+              </mat-error>
+          </mat-form-field>
+      </div>
+     </div>
+ 
+     
+ 
+    <div Class="row">
+ 
+      <mat-grid-list cols="5" rowHeight="100px">
+        <mat-grid-tile> 
+        </mat-grid-tile> 
+        <mat-grid-tile> 
+        </mat-grid-tile> 
+        
+        <mat-grid-tile class="text-center">
+          <button  mat-raised-button class="btn btn-success" [disabled]="form.invalid" type="submit">ثبت</button> 
+        </mat-grid-tile>
+      </mat-grid-list>
+ 
+    </div>
+  </form>
+</mat-expansion-panel>
+</div>

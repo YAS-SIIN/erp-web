@@ -5,3 +5,31 @@
 mat-expansion-panel-header, mat-expansion-panel-header:hover {
     background-color: antiquewhite !important;
 }
+
+button {
+    width: 100%;
+}
+mat-form-field {
+    width: 100%;
+}
+
+mat-expansion-panel {
+    margin: 1px !important;
+}
+
+.ltrInput {
+    direction: ltr !important;
+    text-align: left !important;
+}
+
+.mat-expansion-panel-body {
+    padding: 10px 24px 16px !important;
+}
+
+.mat-radio-label {
+    padding-left: 15px;
+}
+
+.mat-radio-label-content {
+    padding-right: 5px !important; 
+}

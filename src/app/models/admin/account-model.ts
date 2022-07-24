@@ -17,9 +17,14 @@ export class LoginModelData {
 export class LoginDto {
   UserName!: string;
   PassWord!: string; 
+  Test!: string; 
 }
  
-export class SessionResponseModel {
+export class SessionResponseModel extends BaseModel {
+  data!: SessionModel;
+}
+
+export class SessionModel {
   token!: string;
-  expirationTime!: Date;
+  expirationDate!: Date;
 }

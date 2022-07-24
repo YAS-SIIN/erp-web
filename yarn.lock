@@ -118,6 +118,13 @@
     ora "5.4.1"
     rxjs "6.6.7"
 
+"@angular-material-components/file-input@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@angular-material-components/file-input/-/file-input-8.0.0.tgz#1e29c68fd49738a40731ac94c26c140f9d406aaf"
+  integrity sha512-YNfC6TuF2oQNBjyJTmPCVewCrIPPqydbi6O/Tf8jcbeDuJ5mlfdAUuPzUu6LD8H1ah8qwjkt3oYhHUaEGN5kyg==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/animations@^14.0.5":
   version "14.0.5"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-14.0.5.tgz#f9890056a5deef6b4acabfbaf5b182cdede5004c"
@@ -1883,6 +1890,13 @@ ajv@^6.12.4, ajv@^6.12.5:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
+
+angular2-text-mask@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-9.0.0.tgz#70490170a8096241fc3ce9482ed6a758ddbce8ea"
+  integrity sha512-iALcnhJPS1zvX48d86rgUgDe/crX6XfhZrXC4Gdlo2/YwZW7u7KJZY6/b3ieSCIWVq/E6p+wDCzeo3E6leRjDA==
+  dependencies:
+    text-mask-core "^5.0.0"
 
 ansi-colors@4.1.1:
   version "4.1.1"
@@ -6093,6 +6107,11 @@ test-exclude@^6.0.0:
     "@istanbuljs/schema" "^0.1.2"
     glob "^7.1.4"
     minimatch "^3.0.4"
+
+text-mask-core@^5.0.0:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.1.2.tgz#80dd5ebe04825757e46619e691407a9f8b3c1b6f"
+  integrity sha512-VfkCMdmRRZqXgQZFlDMiavm3hzsMzBM23CxHZsaeAYg66ZhXCNJWrFmnJwNy8KF9f74YvAUAuQenxsMCfuvhUw==
 
 text-table@0.2.0:
   version "0.2.0"

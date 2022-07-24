@@ -3,7 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiPath } from 'src/app/apiPath';
 import { environment } from '../../../environments/environment';
-import { LoginDto, LoginResponseModel, SessionResponseModel } from '../../models/account/account-model'; 
+import { LoginDto, LoginResponseModel, SessionResponseModel } from '../../models/admin/account-model'; 
 
 
 @Injectable({
@@ -25,6 +25,7 @@ export class AccountService implements OnInit {
   }
 
   IsAuthenticated() {
+    debugger
     let session = localStorage.getItem('session');
     if (session == null || session == undefined)
       return false;
@@ -33,17 +34,17 @@ export class AccountService implements OnInit {
     if (sessionModel == null || sessionModel == undefined)
       return false;
 
-    if (sessionModel.token == null || sessionModel.token == undefined)
+    if (sessionModel.data.token == null || sessionModel.data.token == undefined)
       return false;
 
-    if (new Date() > sessionModel.expirationTime)
+    if (new Date() > sessionModel.data.expirationDate)
       return false;
 
     return true;
   }
 
   Login(loginDto: LoginDto) {
-    debugger
+    debugger 
     let url = `${this._controllerPath}/Login`;
 
     return this._http.post<LoginResponseModel>(url, loginDto, {
@@ -52,19 +53,20 @@ export class AccountService implements OnInit {
   }
 
   Logout() {
-    let url = `${this._controllerPath}/logout`;
+    let url = `${this._controllerPath}/Logout`;
 
     return this._http.post<LoginResponseModel>(url, {});
   }
 
   GetToken() {
+    debugger
     if (!this.IsAuthenticated()) {
-      if (this._router.url != "/login" && this._router.url != "/register" && this._router.url != "/resetPassword")
-        this._router.navigate(['/login']);
+      if (this._router.url != "/Login" && this._router.url != "/ResetPassword")
+        this._router.navigate(['/Login']);
     }
 
     let session = localStorage.getItem('session');
-    let sessionModel: LoginResponseModel = JSON.parse(session!);
+    let sessionModel: SessionResponseModel = JSON.parse(session!);
     if (sessionModel == null || sessionModel == undefined)
       return null;
 
@@ -73,7 +75,7 @@ export class AccountService implements OnInit {
   
 
   ResetPassword(mobileNumber: string, password: string, verificationCode: string) {
-    let url = `${this._controllerPath}/resetPassword`;
+    let url = `${this._controllerPath}/ResetPassword`;
 
     return this._http.post(url, {
       mobileNumber: mobileNumber,

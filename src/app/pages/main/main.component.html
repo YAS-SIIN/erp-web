@@ -4,10 +4,8 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-
-  <button mat-button routerLink="/" (click)="sidenav.close()">
-    <span>ERP</span>
-  </button>
+ 
+    <span>سیستم یکپارچه آرکا</span> 
   <span class="example-spacer"></span>
   <span flex></span>
    <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -15,7 +13,7 @@
     </button>  
 <mat-menu #menu="matMenu">
   <button mat-menu-item><mat-icon>build</mat-icon>تنظیمات</button>
-  <button mat-menu-item><mat-icon>lock</mat-icon>خروج</button>
+  <button mat-menu-item (click)="Logout();"><mat-icon>lock</mat-icon>خروج</button>
 </mat-menu>
 
 </mat-toolbar>
@@ -30,7 +28,7 @@
    
       <a mat-button (click)="sidenav.close()" routerLink="/dashboard/Tasks">ادمین</a>
       <hr/>
-      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/Tasks">کارمندان</a>
+      <a mat-button (click)="sidenav.close()" routerLink="/employees/employee">کارمندان</a>
       <hr/>
       <a mat-button (click)="sidenav.close()" routerLink="/dashboard">کارتابل</a>
       <hr/>

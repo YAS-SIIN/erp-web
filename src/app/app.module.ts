@@ -26,14 +26,20 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { ToastrModule } from 'ngx-toastr';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatGridListModule } from '@angular/material/grid-list'; 
+import { MatRadioModule } from '@angular/material/radio';
+import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppGuard } from './app-guard.guard';
 import { LoggedInAppGuard } from './logged-in-app-guard.guard';
 import { AuthInterceptor } from './auth.interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './pages/admin/login/login.component';
 import { MainComponent } from './pages/main/main.component'; 
+import { EmployeeComponent } from './pages/employees/employee/employee.component';
+import { ValidationMessageComponent } from './pages/others/validationmessage/validationmessagecomponent.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +47,9 @@ import { MainComponent } from './pages/main/main.component';
     LoginComponent,
     MainComponent,
     DashboardComponent, 
+    ValidationMessageComponent,
+
+    EmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +73,10 @@ import { MainComponent } from './pages/main/main.component';
     MatFormFieldModule,
     MatMenuModule,
     MatTreeModule,
-  
+    MatGridListModule,
+    MatRadioModule,
+    NgxMatFileInputModule,
+    
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -72,6 +84,7 @@ import { MainComponent } from './pages/main/main.component';
 
     CommonModule, 
     ToastrModule.forRoot(),
+    TextMaskModule
   ],
   providers: [AppGuard, LoggedInAppGuard,
     {

@@ -1,0 +1,47 @@
+ 
+<mat-accordion class="example-headers-align" dir="rtl"> 
+    <form #form="ngForm" (submit)="Login(form)" novalidate autocomplete="off">
+  <mat-expansion-panel [expanded]="true" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>account_circle</mat-icon>
+        ورود کاربران
+      </mat-panel-title>
+ 
+    </mat-expansion-panel-header>
+<br>
+  <div>
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>username</mat-label>  
+        <input matInput [(ngModel)]="loginModel.UserName" maxlength="100" name="UserName" #UserName="ngModel" maxlength="100" required>
+     
+        <mat-error *ngIf="!form.controls['UserName'].valid && form.controls['UserName'].touched"class="mat-text-warn">
+          <app-validation-message [control]="form.controls['UserName']" fieldDisplayName="UserName"></app-validation-message>
+        </mat-error>
+      </mat-form-field>  
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>PassWord</mat-label>  
+        <input matInput [(ngModel)]="loginModel.PassWord" maxlength="100" type="password" name="PassWord" #PassWord="ngModel" maxlength="100" required>
+     
+        <mat-error *ngIf="!form.controls['PassWord'].valid && form.controls['PassWord'].touched"class="mat-text-warn">
+          <app-validation-message [control]="form.controls['PassWord']" fieldDisplayName="PassWord"></app-validation-message>
+        </mat-error>
+      </mat-form-field>  
+
+ 
+ 
+        
+  
+    <mat-action-row>
+        <button mat-flat-button color="primary"  type="submit"
+        [disabled]="!form.valid">ورود</button>
+    </mat-action-row>
+    
+  </div>
+  
+  </mat-expansion-panel>
+ 
+</form>
+</mat-accordion>
+ 

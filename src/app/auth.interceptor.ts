@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { AccountService } from './services/account/account.service';
+import { AccountService } from './services/admin/account.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -16,6 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    debugger
     req = req.clone({
       setHeaders: {
         'Accept': 'application/json',

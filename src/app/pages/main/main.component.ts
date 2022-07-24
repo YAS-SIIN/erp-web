@@ -2,7 +2,7 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Router } from '@angular/router';
-import { AccountService } from '../../services/account/account.service';
+import { AccountService } from '../../services/admin/account.service';
 
 interface FoodNode {
   name: string;
@@ -57,6 +57,7 @@ export class MainComponent implements OnInit {
   }
 
   Logout() {
+    debugger
     this._accountService.Logout().subscribe(() => {
       localStorage.removeItem('session');
       this._router.navigate(['/login']);
