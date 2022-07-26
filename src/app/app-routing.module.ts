@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/admin/login/login.component';
 import { MainComponent } from './pages/main/main.component';
 import { ResetPasswordComponent } from './pages/admin/reset-password/reset-password.component';
 import { EmployeeComponent } from './pages/employees/employee/employee.component';
+import { RequestLeaveComponent } from './pages/inout/request-leave/request-leave.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
     path: '', component: MainComponent, 
     children: [
       { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' }, 
-      { path: 'employees/employee', component: EmployeeComponent, pathMatch: 'full' }
+      { path: 'employees/employee', component: EmployeeComponent, pathMatch: 'full' },
+      { path: 'inout/requestleave', component: RequestLeaveComponent, pathMatch: 'full' }
     ]
   }, 
 ];

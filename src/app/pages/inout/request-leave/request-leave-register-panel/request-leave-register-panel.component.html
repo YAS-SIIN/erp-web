@@ -1,0 +1,126 @@
+<br>
+<div class="row" id="pnlCreateEditForm" class="panel">
+
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            ثبت / ویرایش
+          </mat-panel-title> 
+        </mat-expansion-panel-header>
+        <form #form="ngForm" (submit)="onSubmitClick(form)" novalidate>
+    <div class="row">
+        
+
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-label>نوع مرخصی</mat-label>
+        <br>
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="Model.leaveType" (change)="unpaidLeave = Model.leaveType == 3" name="leaveType" #leaveType="ngModel">
+          <mat-radio-button value="1" checked="checked">استحقاقی</mat-radio-button>
+
+          <mat-radio-button value="2">استعلاجی</mat-radio-button> 
+
+          <mat-radio-button value="3">بدون حقوق</mat-radio-button>   
+        </mat-radio-group>  
+        <mat-error *ngIf="!form.controls['leaveType'].valid && form.controls['leaveType'].touched"class="mat-text-warn">
+          <app-validation-message [control]="form.controls['leaveType']" fieldDisplayName="نوع مرخصی"></app-validation-message>
+        </mat-error> 
+      </div>
+
+ 
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <mat-label>نوع مرخصی</mat-label>
+        <br>
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="Model.requestLeaveType" name="requestLeaveType" (change)="timeLeave = !timeLeave" #requestLeaveType="ngModel">
+          <mat-radio-button value="1"  checked="checked">روزانه</mat-radio-button>
+
+          <mat-radio-button value="2">ساعتی</mat-radio-button>  
+        </mat-radio-group>  
+        <mat-error *ngIf="!form.controls['requestLeaveType'].valid && form.controls['requestLeaveType'].touched"class="mat-text-warn">
+          <app-validation-message [control]="form.controls['requestLeaveType']" fieldDisplayName="نوع مرخصی"></app-validation-message>
+        </mat-error> 
+      </div>
+
+      
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngIf="!timeLeave">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>از تاریخ</mat-label>
+          <input matInput [(ngModel)]="Model.fromDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="fromDate" #fromDate="ngModel" required=!timeLeave pattern="[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))">
+       
+          <mat-error *ngIf="!form.controls['fromDate'].valid && form.controls['fromDate'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['fromDate']" fieldDisplayName="از تاریخ"></app-validation-message>
+          </mat-error> 
+        </mat-form-field>  
+      </div>
+
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngIf="!timeLeave">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>تا تاریخ</mat-label>
+          <input matInput [(ngModel)]="Model.toDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="toDate" #toDate="ngModel" required=!timeLeave pattern="[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))">
+          <mat-error *ngIf="!form.controls['toDate'].valid && form.controls['toDate'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['toDate']" fieldDisplayName="تا تاریخ"></app-validation-message>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+  
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngIf="timeLeave">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>از ساعت</mat-label>
+          <input matInput [(ngModel)]="Model.fromTime" maxlength="8" class="ltrInput" name="fromTime" #fromTime="ngModel" required=timeLeave>
+          <mat-error *ngIf="!form.controls['fromTime'].valid && form.controls['fromTime'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['fromTime']" fieldDisplayName="از ساعت"></app-validation-message>
+          </mat-error>
+        </mat-form-field>   
+      </div>
+  
+      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngIf="timeLeave">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>تا ساعت</mat-label>
+          <input matInput [(ngModel)]="Model.toTime" maxlength="8" type="time" class="ltrInput" name="toTime" #toTime="ngModel" required=timeLeave>
+          <mat-error *ngIf="!form.controls['toTime'].valid && form.controls['toTime'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['toTime']" fieldDisplayName="تا ساعت"></app-validation-message>
+          </mat-error>
+        </mat-form-field>   
+      </div>
+ 
+      <div Class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="unpaidLeave">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>علت مرخصی بدون حقوق</mat-label>
+          <input matInput [(ngModel)]="Model.leaveReason" maxlength="250" name="leaveReason" #leaveReason="ngModel">
+          <mat-error *ngIf="!form.controls['leaveReason'].valid && form.controls['leaveReason'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['leaveReason']" fieldDisplayName="علت مرخصی بدون حقوق"></app-validation-message>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+        
+      <div Class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>شرح</mat-label>
+          <input matInput [(ngModel)]="Model.description" maxlength="250" name="description" #description="ngModel">
+          <mat-error *ngIf="!form.controls['description'].valid && form.controls['description'].touched"class="mat-text-warn">
+            <app-validation-message [control]="form.controls['description']" fieldDisplayName="شرح"></app-validation-message>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+
+
+     </div>
+ 
+     
+ 
+    <div Class="row">
+ 
+      <mat-grid-list cols="5" rowHeight="100px">
+        <mat-grid-tile> 
+        </mat-grid-tile> 
+        <mat-grid-tile> 
+        </mat-grid-tile> 
+        
+        <mat-grid-tile class="text-center">
+          <button  mat-raised-button class="btn btn-success" [disabled]="form.invalid" type="submit">ثبت</button> 
+        </mat-grid-tile>
+      </mat-grid-list>
+ 
+    </div>
+  </form>
+</mat-expansion-panel>
+</div>

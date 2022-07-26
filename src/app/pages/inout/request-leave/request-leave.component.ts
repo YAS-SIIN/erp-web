@@ -1,21 +1,23 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { FormBuilder, NgForm } from '@angular/forms'; 
-import { SharedService } from '../../../services/shared/shared.service';
-import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
-import { EmployeeService } from 'src/app/services/employees/employee.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, NgForm } from '@angular/forms';   
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog'; 
+import { SharedService } from 'src/app/services/shared/shared.service';
 import { ConfirmDialogComponent } from '../../others/confirm-dialog/confirm-dialog.component';
+import { RequestLeaveService } from 'src/app/services/inout/request-leave.service';
+import { RequestLeaveModelData, RequestLeaveResponseModel } from 'src/app/models/request-leave/request-leave-model';
  
+ 
+
 @Component({
-  selector: 'app-employees-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css']
+  selector: 'app-inout-request-leave',
+  templateUrl: './request-leave.component.html',
+  styleUrls: ['./request-leave.component.css']
 })
-export class EmployeeComponent implements OnInit {
-  title = 'کارمندان';
+export class RequestLeaveComponent implements OnInit {
+  title = 'مرخصی';
  
-  _employeeService: EmployeeService; 
+  _requestLeaveService: RequestLeaveService; 
   _sharedService: SharedService; 
   public _dialog: MatDialog
   
@@ -28,15 +30,13 @@ export class EmployeeComponent implements OnInit {
   showRegisterButton = true; 
 
  
-
   displayedColumns: string[] = ['Name', 'EmpoloyeeNo', 'Status', 'Description', 'Actions'];
-  NewEmployeeModel: EmployeeModelData = new EmployeeModelData; 
-  dataList: EmployeeModelData[] = []; 
+  NewRequestLeaveModel: RequestLeaveModelData = new RequestLeaveModelData; 
+  dataList: RequestLeaveModelData[] = []; 
  
 
-  constructor(
-    private formBuilder: FormBuilder, sharedService: SharedService, employeeService: EmployeeService, dialog: MatDialog) {
-  this._employeeService = employeeService; 
+  constructor(private formBuilder: FormBuilder, sharedService: SharedService, requestLeaveService: RequestLeaveService, dialog: MatDialog) {
+    this._requestLeaveService = requestLeaveService; 
     this._sharedService = sharedService; 
     this._dialog = dialog; 
   }
@@ -49,8 +49,8 @@ export class EmployeeComponent implements OnInit {
  
   getGridList() {  
   
-      this._employeeService.GetAllData().subscribe(
-        (data: EmployeeResponseModel) => {
+      this._requestLeaveService.GetAllData().subscribe(
+        (data: RequestLeaveResponseModel) => {
           debugger
           this.dataList = data.data
         },
@@ -64,8 +64,8 @@ export class EmployeeComponent implements OnInit {
     this.pnlCreateEditForm = true;
     this.pnlBackForms = true;
     this.pnlElements = false;
-    this.showRegisterButton = true;
-    this.NewEmployeeModel = new EmployeeModelData;
+    this.NewRequestLeaveModel = new RequestLeaveModelData;
+    this.showRegisterButton = true; 
   }
 
   onBackAll() {
@@ -75,16 +75,16 @@ export class EmployeeComponent implements OnInit {
     this.pnlElements = false;
     this.pnlFormView = false;
   }
- 
-  onEdit(SelectedRow: EmployeeModelData){ 
+  
+  onEdit(SelectedRow: RequestLeaveModelData){ 
     debugger
     this.SaveMode = 'Edit';
     this.onOpenCreateEditFormPanel();
     this.showRegisterButton = true;
-    this.NewEmployeeModel=SelectedRow;
+    this.NewRequestLeaveModel=SelectedRow;
   }
  
-  onDelete(SelectedRow: EmployeeModelData){
+  onDelete(SelectedRow: RequestLeaveModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
       data: { message: "آیا مطمعن هستید ؟" }
@@ -94,8 +94,8 @@ export class EmployeeComponent implements OnInit {
       if (result == undefined)
         return;
 
-        this._employeeService.Delete(SelectedRow.id).subscribe(
-          (data: EmployeeResponseModel) => {
+        this._requestLeaveService.Delete(SelectedRow.id).subscribe(
+          (data: RequestLeaveResponseModel) => {
      
             this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
             this.getGridList();
@@ -106,7 +106,7 @@ export class EmployeeComponent implements OnInit {
     });  
   }
   
-  onConfirm(SelectedRow: EmployeeModelData){
+  onConfirm(SelectedRow: RequestLeaveModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
       data: { message: "آیا مطمعن هستید ؟" }
@@ -117,8 +117,8 @@ export class EmployeeComponent implements OnInit {
       if (result == undefined)
         return;
 
-        this._employeeService.Confirm(SelectedRow.id).subscribe(
-          (data: EmployeeResponseModel) => { 
+        this._requestLeaveService.Confirm(SelectedRow.id).subscribe(
+          (data: RequestLeaveResponseModel) => { 
             this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
             this.getGridList();
           },
@@ -129,38 +129,26 @@ export class EmployeeComponent implements OnInit {
      
   }
   
-  onCreateEditElements(SelectedRow: EmployeeModelData){
+  onCreateEditElements(SelectedRow: RequestLeaveModelData){
     this.pnlFirstPage = false;
     this.pnlBackForms = true;
     this.pnlCreateEditForm = false;
     this.pnlElements = true;
-    this.NewEmployeeModel=SelectedRow;  
+    this.NewRequestLeaveModel=SelectedRow;  
   }
   
- 
   onSubmit(form: NgForm) {
     debugger
-    this.NewEmployeeModel.imaghePath = '';
-    let formData = new FormData();
-    if (form.controls['imaghePath'].value != undefined) {
-      let fileToUpload = <File>form.controls['imaghePath'].value;
-      formData.append('File', fileToUpload);
-      this.NewEmployeeModel.imaghePath = fileToUpload.name;
-    }
-    
-    this.NewEmployeeModel.mobileNo = '0' +  this.NewEmployeeModel.mobileNo;
-   
-    formData.append('EMPEmployee', JSON.stringify(this.NewEmployeeModel));
-
+  
     if (this.SaveMode == 'New') {
-      this.NewEmployeeModel.leaveDate = '';
  
-     this._employeeService.Insert(formData).subscribe(
-      (data: EmployeeResponseModel) => {
+ 
+     this._requestLeaveService.Insert(this.NewRequestLeaveModel).subscribe(
+      (data: RequestLeaveResponseModel) => {
 
         this.onBackAll();
         this.SaveMode = 'New';
-        this.NewEmployeeModel = new EmployeeModelData;
+        this.NewRequestLeaveModel = new RequestLeaveModelData;
     
         this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
         this.getGridList();
@@ -168,14 +156,14 @@ export class EmployeeComponent implements OnInit {
       (responseError: HttpErrorResponse) => { 
         this._sharedService.processModelStateErrors(form, responseError); 
       });
-      // this.FormList.push(this.NewEmployeeModel); 
+      // this.FormList.push(this.NewRequestLeaveModel); 
     } else if (this.SaveMode == 'Edit') { 
-      this._employeeService.Update(formData).subscribe(
-        (data: EmployeeResponseModel) => {
+      this._requestLeaveService.Update(this.NewRequestLeaveModel).subscribe(
+        (data: RequestLeaveResponseModel) => {
   
           this.onBackAll();
           this.SaveMode = 'New';
-          this.NewEmployeeModel = new EmployeeModelData;
+          this.NewRequestLeaveModel = new RequestLeaveModelData;
       
           this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
           this.getGridList();
@@ -183,12 +171,11 @@ export class EmployeeComponent implements OnInit {
         (responseError: HttpErrorResponse) => { 
           this._sharedService.processModelStateErrors(form, responseError); 
         });
-    }
-    
- 
-
-    
+    } 
   }
 }
  
- 
+function DialogAnimationsExampleDialog(DialogAnimationsExampleDialog: any, arg1: { width: string; enterAnimationDuration: string; exitAnimationDuration: string; }) {
+  throw new Error('Function not implemented.');
+}
+

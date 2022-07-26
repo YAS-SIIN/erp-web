@@ -1,19 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiPath } from 'src/app/apiPath';
-import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
+import { ApiPath } from 'src/app/apiPath'; 
+import { RequestLeaveModelData, RequestLeaveResponseModel } from 'src/app/models/request-leave/request-leave-model';
 import { environment } from '../../../environments/environment'; 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class RequestLeaveService {
   private _http: HttpClient;
   private _router: Router;
 
-  private _controllerPath: string = `${environment.baseUrl}${ApiPath.Employee}`;
+  private _controllerPath: string = `${environment.baseUrl}${ApiPath.RequestLeave}`;
 
   constructor(http: HttpClient, router: Router) {
     this._http = http;
@@ -24,25 +24,25 @@ export class EmployeeService {
      
     let url = `${this._controllerPath}/Get`;
 
-    return this._http.post<EmployeeResponseModel>(url, {}, {
+    return this._http.post<RequestLeaveResponseModel>(url, {}, {
      
     });
   }
 
-  Insert(data:FormData) {
+  Insert(data:RequestLeaveModelData) {
      
     let url = `${this._controllerPath}/Insert`;
 
-    return this._http.post<EmployeeResponseModel>(url, data, { 
+    return this._http.post<RequestLeaveResponseModel>(url, data, { 
     });
   }
 
   
-  Update(data:FormData) {
+  Update(data:RequestLeaveModelData) {
      
     let url = `${this._controllerPath}/Update`;
 
-    return this._http.put<EmployeeResponseModel>(url, data, {
+    return this._http.put<RequestLeaveResponseModel>(url, data, {
      
     });
   }
@@ -51,7 +51,7 @@ export class EmployeeService {
      
     let url = `${this._controllerPath}/Confirm?Id=${Id}`;
 
-    return this._http.put<EmployeeResponseModel>(url, {Id: Id}, {
+    return this._http.put<RequestLeaveResponseModel>(url, {Id: Id}, {
      
     });
   }
@@ -60,7 +60,7 @@ export class EmployeeService {
      
     let url = `${this._controllerPath}/Delete?Id=${Id}`;
 
-    return this._http.delete<EmployeeResponseModel>(url,  {
+    return this._http.delete<RequestLeaveResponseModel>(url,  {
      
     });
   }

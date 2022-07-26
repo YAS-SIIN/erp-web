@@ -18,8 +18,14 @@ a {
 .sidenav-container a {
   display: inline-block;
   width: 100%;
-  padding: 10px 0;
+  padding: 5px 0;
 }
+
+.sidenav-container div {
+  padding: 5px 5px 5px 5px !important;
+  margin: 0 !important;
+}
+
 
 .sidenav-container a.red {
   color: #a71010;

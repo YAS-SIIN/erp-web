@@ -40,8 +40,10 @@ button {
 
 th {
         font-family: 'IRANSansWeb' !important;
+        font-size: inherit !important;
 }
 
 td {
         font-family: 'IRANSansWeb' !important;
+        font-size: inherit !important;
 }

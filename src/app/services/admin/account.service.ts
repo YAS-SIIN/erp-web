@@ -25,7 +25,7 @@ export class AccountService implements OnInit {
   }
 
   IsAuthenticated() {
-    debugger
+    
     let session = localStorage.getItem('session');
     if (session == null || session == undefined)
       return false;
@@ -44,7 +44,7 @@ export class AccountService implements OnInit {
   }
 
   Login(loginDto: LoginDto) {
-    debugger 
+     
     let url = `${this._controllerPath}/Login`;
 
     return this._http.post<LoginResponseModel>(url, loginDto, {
@@ -59,7 +59,7 @@ export class AccountService implements OnInit {
   }
 
   GetToken() {
-    debugger
+    
     if (!this.IsAuthenticated()) {
       if (this._router.url != "/Login" && this._router.url != "/ResetPassword")
         this._router.navigate(['/Login']);

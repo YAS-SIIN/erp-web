@@ -22,23 +22,31 @@
 
   <mat-sidenav color="primary" position="end" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
     <div fxLayout="column">
+  
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">صفحه اصلی</a>
+ 
+      <div class="text-center alert alert-success">ادمین</div>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/Tasks">دسترسی به کاربران</a>
 
-      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">داشبورد</a>
-      <hr />
-   
-      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/Tasks">ادمین</a>
-      <hr/>
+      <div class="text-center alert alert-success">کارمندان</div>
       <a mat-button (click)="sidenav.close()" routerLink="/employees/employee">کارمندان</a>
-      <hr/>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">فیش حقوقی</a>
+ 
+      <div class="text-center alert alert-success">کارتابل</div>
       <a mat-button (click)="sidenav.close()" routerLink="/dashboard">کارتابل</a>
-      <hr/>
-      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">ورود خروج</a>
-      <hr/>
-      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">کالا و خدمات</a>
-      <hr/>
-      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">Item 5</a>
-      <hr/>
-      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/app/create">Item 6</a>
+      
+      <div class="text-center alert alert-success">ورود خروج</div>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">گزارش ورود خروج</a>
+      <a mat-button (click)="sidenav.close()" routerLink="/inout/requestleave">ثبت مرخصی</a>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">فیش حقوقی من</a>
+      
+      <div class="text-center alert alert-success">کالا و خدمات</div>
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">درخواست کالا و خدمات</a>
+      
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">رزرو غذا</a>
+      
+      <a mat-button (click)="sidenav.close()" routerLink="/dashboard/app/create">Item 6</a> 
+
       <a mat-button (click)="sidenav.close()" routerLink="/dashboard/Tasks">Tasks</a>
       <hr/>
       <a mat-button (click)="sidenav.close(); Logout();" class="red">خروج</a>

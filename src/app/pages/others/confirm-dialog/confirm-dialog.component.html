@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+  {{ data.message }}
+</div>
+
+  <mat-grid-list cols="2" rowHeight="100px">
+  
+    <mat-grid-tile class="text-center">
+      <button mat-button class="btm  btn-sm btn-success" (click)="Submit()" cdkFocusInitial>بله</button>
+    </mat-grid-tile>
+    <mat-grid-tile class="text-center">
+      <button mat-button class="btm  btn-sm btn-warning" (click)="dialogRef.close()">خیر</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+

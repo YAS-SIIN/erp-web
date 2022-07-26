@@ -1,25 +1,25 @@
-import { BaseModel } from "../base-model";
+import { BaseModel, BaseResponseModel } from "../base-model";
 
  
 
 
-export class EmployeeResponseModel extends BaseModel {
-  data!: EmployeeModelData;
+export class EmployeeResponseModel extends BaseResponseModel {
+  data!: EmployeeModelData[];
 }
 
-export class EmployeeModelData {
-FirstName!: string;
-LastName!: string;
-EmpoloyeeNo!: string;
-FatherName!: string;
-NationalCode!: string;
-IdentifyNo!: string;
-DateOfBirth!: string;     
-Gender: number = 0;
-HireDate!: string;
-LeaveDate!: string;
-MobileNo!: string;
-ImaghePath!: string;
+export class EmployeeModelData extends BaseModel {
+firstName!: string;
+lastName!: string;
+empoloyeeNo!: string;
+fatherName!: string;
+nationalCode!: string;
+identifyNo!: string;
+dateOfBirth!: string;     
+gender: number = 0;
+hireDate!: string;
+leaveDate!: string;
+mobileNo!: string;
+imaghePath!: string; 
 }
 
   

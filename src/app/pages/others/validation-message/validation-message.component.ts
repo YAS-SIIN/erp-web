@@ -7,8 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   
 @Component({
   selector: 'app-validation-message',
-  templateUrl: './validationmessagecomponent.component.html',
-  styleUrls: ['./validationmessagecomponent.component.css']
+  templateUrl: './validation-message.component.html'
 })
 export class ValidationMessageComponent implements OnInit {
   @Input() control: AbstractControl | undefined;
@@ -43,6 +42,24 @@ export class ValidationMessageComponent implements OnInit {
       ? this.findRule()
       : this.control?.hasError('model')
       ? `${this.control?.errors?.['model'].messages[0]}`
+      : this.control?.errors?.['modelStateError'].error[0].includes('required')
+      ? `${this.fieldDisplayName} را وارد نمائید.`
+      : this.control?.errors?.['modelStateError'].error[0].includes('pattern')
+      ? `${this.fieldDisplayName} را به شکل صحیح وارد نمائید.`
+      : this.control?.errors?.['modelStateError'].error[0].includes('email')
+      ? `${this.fieldDisplayName} را به شکل صحیح وارد نمائید.`
+      : this.control?.errors?.['modelStateError'].error[0].includes('minlength')
+      ? `مقدار وارد شده کمتر از حد مجاز است`
+      : this.control?.errors?.['modelStateError'].error[0].includes('maxlength')
+      ? `مقدار وارد شده بیشتر از حد مجاز است`
+      : this.control?.errors?.['modelStateError'].error[0].includes('min')
+      ? `مقدار وارد شده کمتر از حد مجاز است`
+      : this.control?.errors?.['modelStateError'].error[0].includes('max')
+      ? `مقدار وارد شده بیشتر از حد مجاز است`
+      : this.control?.errors?.['modelStateError'].error[0].includes('regular expression')
+      ? `فرمت مقدار وارد شده مجاز نیست`
+      : this.control?.errors?.['modelStateError'].error[0].includes('model')
+      ? `${this.control?.errors?.['model'].error[0]}`
       : '';
   }
   constructor() {}
