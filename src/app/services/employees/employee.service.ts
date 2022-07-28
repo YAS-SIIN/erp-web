@@ -11,13 +11,11 @@ import { environment } from '../../../environments/environment';
 })
 export class EmployeeService {
   private _http: HttpClient;
-  private _router: Router;
 
   private _controllerPath: string = `${environment.baseUrl}${ApiPath.Employee}`;
 
-  constructor(http: HttpClient, router: Router) {
+  constructor(http: HttpClient) {
     this._http = http;
-    this._router = router;
   }
 
   GetAllData() {

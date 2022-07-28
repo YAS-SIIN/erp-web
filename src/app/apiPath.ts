@@ -1,5 +1,6 @@
 export enum ApiPath {
   Account = '/Account',
   Employee = '/Employee',
-  RequestLeave = '/RequestLeave'
+  RequestLeave = '/RequestLeave',
+  Main = '/Main',
 }

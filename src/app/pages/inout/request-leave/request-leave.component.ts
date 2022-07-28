@@ -44,14 +44,13 @@ export class RequestLeaveComponent implements OnInit {
  
   ngOnInit(): void { 
    this.getGridList();
-   
+   this._sharedService.GetPersianDate();
   }
  
   getGridList() {  
   
       this._requestLeaveService.GetAllData().subscribe(
-        (data: RequestLeaveResponseModel) => {
-          debugger
+        (data: RequestLeaveResponseModel) => { 
           this.dataList = data.data
         },
         (responseError: HttpErrorResponse) => { 
@@ -65,6 +64,8 @@ export class RequestLeaveComponent implements OnInit {
     this.pnlBackForms = true;
     this.pnlElements = false;
     this.NewEditRowModel = new RequestLeaveModelData;
+    this.NewEditRowModel.fromDate = this._sharedService.dateNow;
+    this.NewEditRowModel.toDate = this._sharedService.dateNow;
     this.showRegisterButton = true; 
   }
 
@@ -193,7 +194,4 @@ export class RequestLeaveComponent implements OnInit {
   }
 }
  
-function DialogAnimationsExampleDialog(DialogAnimationsExampleDialog: any, arg1: { width: string; enterAnimationDuration: string; exitAnimationDuration: string; }) {
-  throw new Error('Function not implemented.');
-}
 

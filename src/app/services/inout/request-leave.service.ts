@@ -10,14 +10,12 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class RequestLeaveService {
-  private _http: HttpClient;
-  private _router: Router;
+  private _http: HttpClient; 
 
   private _controllerPath: string = `${environment.baseUrl}${ApiPath.RequestLeave}`;
 
-  constructor(http: HttpClient, router: Router) {
-    this._http = http;
-    this._router = router;
+  constructor(http: HttpClient) {
+    this._http = http; 
   }
 
   GetAllData() {

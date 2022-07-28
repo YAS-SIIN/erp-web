@@ -1,14 +1,20 @@
  
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ApiPath } from 'src/app/apiPath';
+import { environment } from 'src/environments/environment';
  
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
+
+  private _controllerPath: string = `${environment.baseUrl}${ApiPath.Main}`;
+  
+  public dateNow: string='1111/11/11';
 
   public dateMask= [/\d/, /\d/,/\d/,/\d/, '/', /\d/, /\d/, '/', /\d/, /\d/];
   public timeMask= [/\d/, ':', /[0-5]/, /\d/];
@@ -18,11 +24,16 @@ export class SharedService {
   public baseStatus: string[] =    ['غیرفعال', 'فعال', '', 'حذف شده'];
   public leaveTypeList: string[] = [ 'استحقاقی', 'استعلاجی', 'بدون حقوق'];
   public requestLeaveTypeList: string[] = [ 'روزانه', 'ساعتی' ];
+  
+  private _http: HttpClient;
 
-  constructor(private toastr : ToastrService) {
-
+ 
+  constructor(private toastr : ToastrService, http: HttpClient) {
+    this._http = http;
    }
  
+ 
+   
 
   toastError(message: string, title: string = 'Error') {
     this.toastr.error(message, title);
@@ -40,6 +51,22 @@ export class SharedService {
     this.toastr.warning(message, title);
   }
 
+
+  GetPersianDate() { 
+    debugger
+    let url = `${this._controllerPath}/GetPersianDate`;
+
+     this._http.post<string>(url, {}, {}).subscribe(
+      (data: string) => { 
+        this.dateNow = data;
+      },
+      (responseError: HttpErrorResponse) => { 
+        this.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
+      });
+  }
+
+
+ //--------------- Errors
   errors: string[] = [];
 
   processModelStateErrors(form: NgForm, responseError: HttpErrorResponse) {
