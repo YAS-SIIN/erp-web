@@ -24,32 +24,35 @@
       </mat-expansion-panel-header>
      
       <table mat-table matSort class="mat-elevation-z8" style="width: 100%;" [dataSource]="dataList" >
-          <ng-container matColumnDef="Name">
+          <ng-container matColumnDef="name">
               <th  mat-header-cell *matHeaderCellDef> نام </th>
-              <td mat-cell *matCellDef="let datarowrow"> {{datarowrow.firstName}} {{datarowrow.lastName}} </td>
+              <td mat-cell *matCellDef="let datarow"> {{datarow.firstName}} {{datarow.lastName}} </td>
           </ng-container>  
-          <ng-container matColumnDef="EmpoloyeeNo">
+          <ng-container matColumnDef="empoloyeeNo">
               <th  mat-header-cell *matHeaderCellDef> کد پرسنلی </th>
-              <td mat-cell *matCellDef="let datarowrow"> {{datarowrow.empoloyeeNo}} </td>
+              <td mat-cell *matCellDef="let datarow"> {{datarow.empoloyeeNo}} </td>
           </ng-container>   
-          <ng-container matColumnDef="Status">
+          <ng-container matColumnDef="status">
               <th  mat-header-cell *matHeaderCellDef> وضعیت </th>
-              <td mat-cell *matCellDef="let datarowrow"> {{_sharedService.baseStatus[datarowrow.status]}} </td>
+              <td mat-cell *matCellDef="let datarow"> {{_sharedService.baseStatus[datarow.status]}} </td>
           </ng-container>    
-          <ng-container matColumnDef="Description">
+          <ng-container matColumnDef="description">
               <th  mat-header-cell *matHeaderCellDef> شرح </th>
-              <td mat-cell *matCellDef="let datarowrow"> {{datarowrow.description}} </td>
+              <td mat-cell *matCellDef="let datarow"> {{datarow.description}} </td>
           </ng-container>   
-          <ng-container  matColumnDef="Actions">
+          <ng-container  matColumnDef="actions">
             <th  mat-header-cell *matHeaderCellDef> عملیات </th>
-            <td mat-cell *matCellDef="let datarowrow">
-              <button mat-icon-button color="warn" (click)="onDelete(datarowrow)" aria-label="Example icon-button with a delete icon">
+            <td mat-cell *matCellDef="let datarow">
+              <button mat-icon-button color="warn" (click)="onDelete(datarow)" *ngIf="datarow.status == 0" aria-label="Example icon-button with a delete icon">
                 <mat-icon>delete</mat-icon>
               </button>
-              <button mat-icon-button  (click)="onEdit(datarowrow)" aria-label="Example icon-button with a edit icon">
+              <button mat-icon-button (click)="onEdit(datarow)" *ngIf="datarow.status == 0" aria-label="Example icon-button with a edit icon">
                 <mat-icon>edit</mat-icon>
               </button> 
-              <button mat-icon-button (click)="onConfirm(datarowrow)"  aria-label="Example icon-button with a edit icon">
+              <button mat-icon-button (click)="onDetail(datarow)" aria-label="Example icon-button with a edit icon">
+                <mat-icon>assignment</mat-icon>
+              </button> 
+              <button mat-icon-button (click)="onConfirm(datarow)" *ngIf="datarow.status == 0" aria-label="Example icon-button with a edit icon">
                 <mat-icon class="text text-success">check</mat-icon>
               </button> 
             </td>
@@ -66,4 +69,4 @@
 
 </div>
 
-<app-employees-employee-register-panel *ngIf="pnlCreateEditForm" [Model]="NewEmployeeModel" (submitClicked)="onSubmit($event)" [showRegisterButton]="showRegisterButton"></app-employees-employee-register-panel>
+<app-employees-employee-register-panel *ngIf="pnlCreateEditForm" [Model]="NewEditRowModel" (submitClicked)="onSubmit($event)" [showRegisterButton]="showRegisterButton"></app-employees-employee-register-panel>

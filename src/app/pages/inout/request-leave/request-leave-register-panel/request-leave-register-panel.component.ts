@@ -32,7 +32,7 @@ export class RequestLeaveRegisterPanelComponent implements OnInit {
  
  
   ngOnInit(): void { 
- 
+    this.onChangeRequestLeaveType();
    
   }
   
@@ -40,5 +40,8 @@ export class RequestLeaveRegisterPanelComponent implements OnInit {
     this.submitClicked.emit(form);
   }
 
+  onChangeRequestLeaveType(){
+    this.timeLeave = this.Model.requestLeaveType == 0 ? false : true;
+  }
   }
  

@@ -29,8 +29,8 @@ export class EmployeeComponent implements OnInit {
 
  
 
-  displayedColumns: string[] = ['Name', 'EmpoloyeeNo', 'Status', 'Description', 'Actions'];
-  NewEmployeeModel: EmployeeModelData = new EmployeeModelData; 
+  displayedColumns: string[] = ['name', 'empoloyeeNo', 'status', 'description', 'actions'];
+  NewEditRowModel: EmployeeModelData = new EmployeeModelData; 
   dataList: EmployeeModelData[] = []; 
  
 
@@ -65,7 +65,7 @@ export class EmployeeComponent implements OnInit {
     this.pnlBackForms = true;
     this.pnlElements = false;
     this.showRegisterButton = true;
-    this.NewEmployeeModel = new EmployeeModelData;
+    this.NewEditRowModel = new EmployeeModelData;
   }
 
   onBackAll() {
@@ -81,7 +81,15 @@ export class EmployeeComponent implements OnInit {
     this.SaveMode = 'Edit';
     this.onOpenCreateEditFormPanel();
     this.showRegisterButton = true;
-    this.NewEmployeeModel=SelectedRow;
+    this.NewEditRowModel=SelectedRow;
+  }
+ 
+  onDetail(SelectedRow: EmployeeModelData){ 
+    debugger
+    this.SaveMode = 'Detail';
+    this.onOpenCreateEditFormPanel();
+    this.showRegisterButton = false;
+    this.NewEditRowModel=SelectedRow;
   }
  
   onDelete(SelectedRow: EmployeeModelData){
@@ -134,33 +142,33 @@ export class EmployeeComponent implements OnInit {
     this.pnlBackForms = true;
     this.pnlCreateEditForm = false;
     this.pnlElements = true;
-    this.NewEmployeeModel=SelectedRow;  
+    this.NewEditRowModel=SelectedRow;  
   }
   
  
   onSubmit(form: NgForm) {
     debugger
-    this.NewEmployeeModel.imaghePath = '';
+    this.NewEditRowModel.imaghePath = '';
     let formData = new FormData();
     if (form.controls['imaghePath'].value != undefined) {
       let fileToUpload = <File>form.controls['imaghePath'].value;
       formData.append('File', fileToUpload);
-      this.NewEmployeeModel.imaghePath = fileToUpload.name;
+      this.NewEditRowModel.imaghePath = fileToUpload.name;
     }
     
-    this.NewEmployeeModel.mobileNo = '0' +  this.NewEmployeeModel.mobileNo;
+    this.NewEditRowModel.mobileNo = '0' +  this.NewEditRowModel.mobileNo;
    
-    formData.append('EMPEmployee', JSON.stringify(this.NewEmployeeModel));
+    formData.append('EMPEmployee', JSON.stringify(this.NewEditRowModel));
 
     if (this.SaveMode == 'New') {
-      this.NewEmployeeModel.leaveDate = '';
+      this.NewEditRowModel.leaveDate = '';
  
      this._employeeService.Insert(formData).subscribe(
       (data: EmployeeResponseModel) => {
 
         this.onBackAll();
         this.SaveMode = 'New';
-        this.NewEmployeeModel = new EmployeeModelData;
+        this.NewEditRowModel = new EmployeeModelData;
     
         this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
         this.getGridList();
@@ -168,14 +176,14 @@ export class EmployeeComponent implements OnInit {
       (responseError: HttpErrorResponse) => { 
         this._sharedService.processModelStateErrors(form, responseError); 
       });
-      // this.FormList.push(this.NewEmployeeModel); 
+      // this.FormList.push(this.NewEditRowModel); 
     } else if (this.SaveMode == 'Edit') { 
       this._employeeService.Update(formData).subscribe(
         (data: EmployeeResponseModel) => {
   
           this.onBackAll();
           this.SaveMode = 'New';
-          this.NewEmployeeModel = new EmployeeModelData;
+          this.NewEditRowModel = new EmployeeModelData;
       
           this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
           this.getGridList();

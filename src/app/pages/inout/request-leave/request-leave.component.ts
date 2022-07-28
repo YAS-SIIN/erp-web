@@ -30,8 +30,8 @@ export class RequestLeaveComponent implements OnInit {
   showRegisterButton = true; 
 
  
-  displayedColumns: string[] = ['Name', 'EmpoloyeeNo', 'Status', 'Description', 'Actions'];
-  NewRequestLeaveModel: RequestLeaveModelData = new RequestLeaveModelData; 
+  displayedColumns: string[] = ['leaveType', 'requestLeaveType', 'fromDate', 'toDate', 'status', 'description', 'actions'];
+  NewEditRowModel: RequestLeaveModelData = new RequestLeaveModelData; 
   dataList: RequestLeaveModelData[] = []; 
  
 
@@ -64,7 +64,7 @@ export class RequestLeaveComponent implements OnInit {
     this.pnlCreateEditForm = true;
     this.pnlBackForms = true;
     this.pnlElements = false;
-    this.NewRequestLeaveModel = new RequestLeaveModelData;
+    this.NewEditRowModel = new RequestLeaveModelData;
     this.showRegisterButton = true; 
   }
 
@@ -81,9 +81,17 @@ export class RequestLeaveComponent implements OnInit {
     this.SaveMode = 'Edit';
     this.onOpenCreateEditFormPanel();
     this.showRegisterButton = true;
-    this.NewRequestLeaveModel=SelectedRow;
+    this.NewEditRowModel=SelectedRow;
   }
- 
+
+  onDetail(SelectedRow: RequestLeaveModelData){ 
+    debugger
+    this.SaveMode = 'Detail';
+    this.onOpenCreateEditFormPanel();
+    this.showRegisterButton = false;
+    this.NewEditRowModel=SelectedRow;
+  }
+
   onDelete(SelectedRow: RequestLeaveModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
@@ -134,21 +142,31 @@ export class RequestLeaveComponent implements OnInit {
     this.pnlBackForms = true;
     this.pnlCreateEditForm = false;
     this.pnlElements = true;
-    this.NewRequestLeaveModel=SelectedRow;  
+    this.NewEditRowModel=SelectedRow;  
   }
   
   onSubmit(form: NgForm) {
     debugger
-  
+    this.NewEditRowModel.requestDate='1111/11/11';
+    this.NewEditRowModel.leaveReason= this.NewEditRowModel.leaveReason || '';
+
+  if (this.NewEditRowModel.leaveDay == 0){
+    this.NewEditRowModel.fromDate='1111/11/11';
+    this.NewEditRowModel.toDate='1111/11/11';
+  } else {
+    this.NewEditRowModel.fromTime='00:00';
+    this.NewEditRowModel.toTime='00:00'; 
+  }
+
+    this.NewEditRowModel.fromDate
     if (this.SaveMode == 'New') {
- 
- 
-     this._requestLeaveService.Insert(this.NewRequestLeaveModel).subscribe(
+  
+     this._requestLeaveService.Insert(this.NewEditRowModel).subscribe(
       (data: RequestLeaveResponseModel) => {
 
         this.onBackAll();
         this.SaveMode = 'New';
-        this.NewRequestLeaveModel = new RequestLeaveModelData;
+        this.NewEditRowModel = new RequestLeaveModelData;
     
         this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
         this.getGridList();
@@ -156,14 +174,14 @@ export class RequestLeaveComponent implements OnInit {
       (responseError: HttpErrorResponse) => { 
         this._sharedService.processModelStateErrors(form, responseError); 
       });
-      // this.FormList.push(this.NewRequestLeaveModel); 
+      // this.FormList.push(this.NewEditRowModel); 
     } else if (this.SaveMode == 'Edit') { 
-      this._requestLeaveService.Update(this.NewRequestLeaveModel).subscribe(
+      this._requestLeaveService.Update(this.NewEditRowModel).subscribe(
         (data: RequestLeaveResponseModel) => {
   
           this.onBackAll();
           this.SaveMode = 'New';
-          this.NewRequestLeaveModel = new RequestLeaveModelData;
+          this.NewEditRowModel = new RequestLeaveModelData;
       
           this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
           this.getGridList();

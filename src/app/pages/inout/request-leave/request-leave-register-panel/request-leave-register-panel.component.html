@@ -15,11 +15,7 @@
         <mat-label>نوع مرخصی</mat-label>
         <br>
         <mat-radio-group aria-label="Select an option" [(ngModel)]="Model.leaveType" (change)="unpaidLeave = Model.leaveType == 3" name="leaveType" #leaveType="ngModel">
-          <mat-radio-button value="1" checked="checked">استحقاقی</mat-radio-button>
-
-          <mat-radio-button value="2">استعلاجی</mat-radio-button> 
-
-          <mat-radio-button value="3">بدون حقوق</mat-radio-button>   
+          <mat-radio-button *ngFor="let item of _sharedService.leaveTypeList; index as i" value="{{i}}" checked="checked">{{item}}</mat-radio-button>  
         </mat-radio-group>  
         <mat-error *ngIf="!form.controls['leaveType'].valid && form.controls['leaveType'].touched"class="mat-text-warn">
           <app-validation-message [control]="form.controls['leaveType']" fieldDisplayName="نوع مرخصی"></app-validation-message>
@@ -30,10 +26,9 @@
       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <mat-label>نوع مرخصی</mat-label>
         <br>
-        <mat-radio-group aria-label="Select an option" [(ngModel)]="Model.requestLeaveType" name="requestLeaveType" (change)="timeLeave = !timeLeave" #requestLeaveType="ngModel">
-          <mat-radio-button value="1"  checked="checked">روزانه</mat-radio-button>
-
-          <mat-radio-button value="2">ساعتی</mat-radio-button>  
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="Model.requestLeaveType" name="requestLeaveType" (change)="onChangeRequestLeaveType()" #requestLeaveType="ngModel">
+          <mat-radio-button *ngFor="let item of _sharedService.requestLeaveTypeList; index as i" value="{{i}}" checked="checked">{{item}}</mat-radio-button>  
+ 
         </mat-radio-group>  
         <mat-error *ngIf="!form.controls['requestLeaveType'].valid && form.controls['requestLeaveType'].touched"class="mat-text-warn">
           <app-validation-message [control]="form.controls['requestLeaveType']" fieldDisplayName="نوع مرخصی"></app-validation-message>
@@ -65,7 +60,7 @@
       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngIf="timeLeave">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>از ساعت</mat-label>
-          <input matInput [(ngModel)]="Model.fromTime" maxlength="8" class="ltrInput" name="fromTime" #fromTime="ngModel" required=timeLeave>
+          <input matInput [(ngModel)]="Model.fromTime" maxlength="8" type="time" class="ltrInput" name="fromTime" #fromTime="ngModel" required=timeLeave>
           <mat-error *ngIf="!form.controls['fromTime'].valid && form.controls['fromTime'].touched"class="mat-text-warn">
             <app-validation-message [control]="form.controls['fromTime']" fieldDisplayName="از ساعت"></app-validation-message>
           </mat-error>
@@ -116,7 +111,7 @@
         </mat-grid-tile> 
         
         <mat-grid-tile class="text-center">
-          <button  mat-raised-button class="btn btn-success" [disabled]="form.invalid" type="submit">ثبت</button> 
+          <button *ngIf="showRegisterButton" mat-raised-button class="btn btn-success" [disabled]="form.invalid" type="submit">ثبت</button> 
         </mat-grid-tile>
       </mat-grid-list>
  

@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { BaseStatus } from 'src/app/models/base-enums';
+ 
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,14 @@ export class SharedService {
   public timeMask= [/\d/, ':', /[0-5]/, /\d/];
   public mobileNumberMask = [/[0]/, /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
-  public baseStatus = BaseStatus;
-  
-  constructor(private toastr : ToastrService) { }
+  //Enums
+  public baseStatus: string[] =    ['غیرفعال', 'فعال', '', 'حذف شده'];
+  public leaveTypeList: string[] = [ 'استحقاقی', 'استعلاجی', 'بدون حقوق'];
+  public requestLeaveTypeList: string[] = [ 'روزانه', 'ساعتی' ];
+
+  constructor(private toastr : ToastrService) {
+
+   }
  
 
   toastError(message: string, title: string = 'Error') {
@@ -41,7 +46,7 @@ export class SharedService {
     this.errors=[];
 
     if (responseError.status === 400) {
-      const modelStateErrors = responseError.error;
+      const modelStateErrors = responseError.error.error;
       for (const fieldName in modelStateErrors) {
         if (modelStateErrors.hasOwnProperty(fieldName)) {
          
