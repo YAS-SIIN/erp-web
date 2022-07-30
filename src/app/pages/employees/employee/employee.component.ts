@@ -22,7 +22,7 @@ export class EmployeeComponent implements OnInit {
   SaveMode = 'New'; 
   pnlBackForms = false;  
   pnlFirstPage = true; 
-  pnlCreateEditForm = false; 
+  pnlCreateEditForm = false;  
   pnlElements = false; 
   pnlFormView = false; 
   showRegisterButton = true; 

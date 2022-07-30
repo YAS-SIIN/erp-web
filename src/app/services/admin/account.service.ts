@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiPath } from 'src/app/apiPath';
+import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
 import { environment } from '../../../environments/environment';
 import { LoginDto, LoginResponseModel, SessionResponseModel } from '../../models/admin/account-model'; 
 
@@ -84,4 +85,15 @@ export class AccountService implements OnInit {
     }, { 
     });
   }
+  
+  
+  GetAccountInfo() {  
+    let token = this.GetToken();
+    let url = `${this._controllerPath}/GetAccountInfo?token=${token}`;
+    return this._http.post<EmployeeResponseModel>(url, {}, {
+
+     });
+  }
+
+
 }

@@ -1,4 +1,5 @@
- 
+<mat-card>{{title}} </mat-card>
+<br>
 <mat-grid-list cols="5" rowHeight="100px">
   <mat-grid-tile > 
   </mat-grid-tile> 
@@ -14,12 +15,11 @@
 <br>
 
 <div class="row" id="pnlData" *ngIf="pnlFirstPage" class="panel">
-
-  
+ 
   <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          اطلاعات {{title}}
+          <mat-icon>format_align_justify</mat-icon> اطلاعات {{title}} 
         </mat-panel-title> 
       </mat-expansion-panel-header>
      

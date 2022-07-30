@@ -11,6 +11,7 @@ export class RequestLeaveModelData extends BaseModel {
     leaveType!: Number;
     fromDate: string = "";
     toDate: string = "";
+    timeLeaveDate: string = "";
     fromTime:  string = "";
     toTime: string = "";
     leaveDay!: Number;
@@ -19,3 +20,7 @@ export class RequestLeaveModelData extends BaseModel {
 }
 
   
+export class RequestLeaveFilterDto { 
+  year!: Number;
+}
+

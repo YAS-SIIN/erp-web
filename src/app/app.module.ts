@@ -45,6 +45,7 @@ import { ConfirmDialogComponent } from './pages/others/confirm-dialog/confirm-di
 import { RequestLeaveComponent } from './pages/inout/request-leave/request-leave.component';
 import { EmployeeRegisterPanelComponent } from './pages/employees/employee/employee-register-panel/employee-register-panel.component';
 import { RequestLeaveRegisterPanelComponent } from './pages/inout/request-leave/request-leave-register-panel/request-leave-register-panel.component';
+import { CartableComponent } from './pages/cartables/cartable/cartable.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,8 @@ import { RequestLeaveRegisterPanelComponent } from './pages/inout/request-leave/
 
     RequestLeaveComponent,
     RequestLeaveRegisterPanelComponent,
+
+    CartableComponent,
   ],
   imports: [
     BrowserModule,

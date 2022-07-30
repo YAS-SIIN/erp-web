@@ -5,9 +5,10 @@
     </button>
   </div>
  
-    <span>سیستم یکپارچه</span> 
+    <span>سیستم یکپارچه آرکا</span> 
   <span class="example-spacer"></span>
   <span flex></span>
+  <span>{{this.accountInfo.firstName}} {{this.accountInfo.lastName}}</span>
    <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>account_circle</mat-icon>
     </button>  
@@ -33,7 +34,7 @@
       <a mat-button (click)="sidenav.close()" routerLink="/dashboard">فیش حقوقی</a>
  
       <div class="text-center alert alert-success">کارتابل</div>
-      <a mat-button (click)="sidenav.close()" routerLink="/dashboard">کارتابل</a>
+      <a mat-button (click)="sidenav.close()" routerLink="/cartables/cartable">کارتابل</a>
       
       <div class="text-center alert alert-success">ورود خروج</div>
       <a mat-button (click)="sidenav.close()" routerLink="/dashboard">گزارش ورود خروج</a>

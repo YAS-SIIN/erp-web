@@ -8,6 +8,7 @@ import { MainComponent } from './pages/main/main.component';
 import { ResetPasswordComponent } from './pages/admin/reset-password/reset-password.component';
 import { EmployeeComponent } from './pages/employees/employee/employee.component';
 import { RequestLeaveComponent } from './pages/inout/request-leave/request-leave.component';
+import { CartableComponent } from './pages/cartables/cartable/cartable.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' }, 
       { path: 'employees/employee', component: EmployeeComponent, pathMatch: 'full' },
-      { path: 'inout/requestleave', component: RequestLeaveComponent, pathMatch: 'full' }
+      { path: 'inout/requestleave', component: RequestLeaveComponent, pathMatch: 'full' },
+      { path: 'cartables/cartable', component: CartableComponent, pathMatch: 'full' }
     ]
   }, 
 ];

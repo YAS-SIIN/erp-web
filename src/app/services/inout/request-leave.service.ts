@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiPath } from 'src/app/apiPath'; 
-import { RequestLeaveModelData, RequestLeaveResponseModel } from 'src/app/models/request-leave/request-leave-model';
+import { RequestLeaveFilterDto, RequestLeaveModelData, RequestLeaveResponseModel } from 'src/app/models/request-leave/request-leave-model';
 import { environment } from '../../../environments/environment'; 
 
 
@@ -18,11 +18,11 @@ export class RequestLeaveService {
     this._http = http; 
   }
 
-  GetAllData() {
+  GetAllData(data: RequestLeaveFilterDto) {
      
     let url = `${this._controllerPath}/Get`;
 
-    return this._http.post<RequestLeaveResponseModel>(url, {}, {
+    return this._http.post<RequestLeaveResponseModel>(url, data, {
      
     });
   }

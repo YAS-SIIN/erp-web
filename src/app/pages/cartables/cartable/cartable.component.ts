@@ -11,12 +11,12 @@ import { filter } from 'rxjs';
  
 
 @Component({
-  selector: 'app-inout-request-leave',
-  templateUrl: './request-leave.component.html',
-  styleUrls: ['./request-leave.component.css']
+  selector: 'app-cartables-cartable',
+  templateUrl: './cartable.component.html',
+  styleUrls: ['./cartable.component.css']
 })
-export class RequestLeaveComponent implements OnInit {
-  title = 'مرخصی';
+export class CartableComponent implements OnInit {
+  title = 'کارتابل';
  
   _requestLeaveService: RequestLeaveService; 
   _sharedService: SharedService; 
@@ -31,7 +31,7 @@ export class RequestLeaveComponent implements OnInit {
   showRegisterButton = true; 
 
  
-  displayedColumns: string[] = ['leaveType', 'requestLeaveType', 'fromDate_toDate', 'fromTime_toTime', 'status', 'description', 'actions'];
+  displayedColumns: string[] = ['leaveType', 'requestLeaveType', 'fromDate_toDate', 'status', 'description', 'actions'];
   NewEditRowModel: RequestLeaveModelData = new RequestLeaveModelData; 
   filterData: RequestLeaveFilterDto = new RequestLeaveFilterDto; 
   dataList: RequestLeaveModelData[] = []; 
@@ -58,18 +58,7 @@ export class RequestLeaveComponent implements OnInit {
           this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
         });
   }
-
-  onOpenCreateEditFormPanel() {
-    this.pnlFirstPage = false;
-    this.pnlCreateEditForm = true;
-    this.pnlBackForms = true;
-    this.pnlElements = false;
-    this.NewEditRowModel = new RequestLeaveModelData;
-    this.NewEditRowModel.fromDate = this._sharedService.dateNow;
-    this.NewEditRowModel.toDate = this._sharedService.dateNow;
-    this.showRegisterButton = true; 
-  }
-
+ 
   onBackAll() {
     this.pnlFirstPage = true;
     this.pnlBackForms = false;
@@ -77,19 +66,10 @@ export class RequestLeaveComponent implements OnInit {
     this.pnlElements = false;
     this.pnlFormView = false;
   }
-  
-  onEdit(SelectedRow: RequestLeaveModelData){ 
-    debugger
-    this.SaveMode = 'Edit';
-    this.onOpenCreateEditFormPanel();
-    this.showRegisterButton = true;
-    this.NewEditRowModel=SelectedRow;
-  }
-
+   
   onDetail(SelectedRow: RequestLeaveModelData){ 
     debugger
-    this.SaveMode = 'Detail';
-    this.onOpenCreateEditFormPanel();
+    this.SaveMode = 'Detail'; 
     this.showRegisterButton = false;
     this.NewEditRowModel=SelectedRow;
   }
@@ -139,61 +119,6 @@ export class RequestLeaveComponent implements OnInit {
      
   }
   
-  onCreateEditElements(SelectedRow: RequestLeaveModelData){
-    this.pnlFirstPage = false;
-    this.pnlBackForms = true;
-    this.pnlCreateEditForm = false;
-    this.pnlElements = true;
-    this.NewEditRowModel=SelectedRow;  
-  }
-  
-  onSubmit(form: NgForm) {
-    debugger
-    this.NewEditRowModel.requestDate='1111/11/11';
-    this.NewEditRowModel.leaveReason= this.NewEditRowModel.leaveReason || '';
-
-  if (this.NewEditRowModel.requestLeaveType == 1){
-    this.NewEditRowModel.fromDate = '1111/11/11';
-    this.NewEditRowModel.toDate = '1111/11/11';
-  } else {
-    this.NewEditRowModel.timeLeaveDate = '1111/11/11';
-    this.NewEditRowModel.fromTime = '00:00';
-    this.NewEditRowModel.toTime = '00:00'; 
-  }
-
-    this.NewEditRowModel.fromDate
-    if (this.SaveMode == 'New') {
-  
-     this._requestLeaveService.Insert(this.NewEditRowModel).subscribe(
-      (data: RequestLeaveResponseModel) => {
-
-        this.onBackAll();
-        this.SaveMode = 'New';
-        this.NewEditRowModel = new RequestLeaveModelData;
-    
-        this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
-        this.getGridList();
-      },
-      (responseError: HttpErrorResponse) => { 
-        this._sharedService.processModelStateErrors(form, responseError); 
-      });
-      // this.FormList.push(this.NewEditRowModel); 
-    } else if (this.SaveMode == 'Edit') { 
-      this._requestLeaveService.Update(this.NewEditRowModel).subscribe(
-        (data: RequestLeaveResponseModel) => {
-  
-          this.onBackAll();
-          this.SaveMode = 'New';
-          this.NewEditRowModel = new RequestLeaveModelData;
-      
-          this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
-          this.getGridList();
-        },
-        (responseError: HttpErrorResponse) => { 
-          this._sharedService.processModelStateErrors(form, responseError); 
-        });
-    } 
-  }
 }
  
 

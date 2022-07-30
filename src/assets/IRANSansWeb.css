@@ -11,6 +11,10 @@ body {
     font-family: 'IRANSansWeb' !important;
 } 
 
+.mat-card {
+    font-family: 'IRANSansWeb' !important;
+} 
+
 button > span {
     font-family: 'IRANSansWeb' !important;
 }

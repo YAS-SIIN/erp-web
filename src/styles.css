@@ -2,7 +2,7 @@
 @import './assets/IRANSansWeb.css';
 @import './assets/material-icon.css';
 
-mat-expansion-panel-header, mat-expansion-panel-header:hover {
+mat-expansion-panel-header, mat-expansion-panel-header:hover, .mat-card {
     background-color: antiquewhite !important;
 }
 

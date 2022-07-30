@@ -1,7 +1,10 @@
 import { NestedTreeControl } from '@angular/cdk/tree';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Router } from '@angular/router';
+import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
+import { SharedService } from 'src/app/services/shared/shared.service';
 import { AccountService } from '../../services/admin/account.service';
 
 interface FoodNode {
@@ -37,11 +40,13 @@ const TREE_DATA: FoodNode[] = [
 
 export class MainComponent implements OnInit {
   _accountService: AccountService;
+  _sharedService: SharedService;
   _router: Router;
+ 
+  accountInfo: any;
 
-  searchKeyword!: string;
-
-  constructor(accountService: AccountService, router: Router) {
+  constructor(accountService: AccountService, sharedService: SharedService, router: Router) {
+    this._sharedService = sharedService;
     this._accountService = accountService;
     this.dataSource.data = TREE_DATA;
     this._router = router;
@@ -54,6 +59,7 @@ export class MainComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.GetAccountInfo();
   }
 
   Logout() {
@@ -62,6 +68,17 @@ export class MainComponent implements OnInit {
       localStorage.removeItem('session');
       this._router.navigate(['/login']);
     })
+  }
+
+  GetAccountInfo() {
+    debugger
+    this._accountService.GetAccountInfo().subscribe(
+      (data: EmployeeResponseModel) => { 
+       this.accountInfo = data.data;
+      },
+      (responseError: HttpErrorResponse) => { 
+        this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
+      });
   }
  
 }

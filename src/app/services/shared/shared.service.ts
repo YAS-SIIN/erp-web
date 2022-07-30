@@ -19,6 +19,7 @@ export class SharedService {
   public dateMask= [/\d/, /\d/,/\d/,/\d/, '/', /\d/, /\d/, '/', /\d/, /\d/];
   public timeMask= [/\d/, ':', /[0-5]/, /\d/];
   public mobileNumberMask = [/[0]/, /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  public yearMask = [/[1-4]/,/\d/,/\d/,/\d/];
 
   //Enums
   public baseStatus: string[] =    ['غیرفعال', 'فعال', '', 'حذف شده'];
@@ -52,8 +53,7 @@ export class SharedService {
   }
 
 
-  GetPersianDate() { 
-    debugger
+  GetPersianDate() {  
     let url = `${this._controllerPath}/GetPersianDate`;
 
      this._http.post<string>(url, {}, {}).subscribe(
