@@ -77,7 +77,7 @@ export class MainComponent implements OnInit {
        this.accountInfo = data.data;
       },
       (responseError: HttpErrorResponse) => { 
-        this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
+        this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
       });
   }
  

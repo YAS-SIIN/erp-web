@@ -1,4 +1,4 @@
-import { BaseModel, BaseResponseModel } from "../base-model";
+import { BaseModel, BaseResponseModel, CartableBaseModel } from "../base-model";
 
   
 export class RequestLeaveResponseModel extends BaseResponseModel {
@@ -20,7 +20,6 @@ export class RequestLeaveModelData extends BaseModel {
 }
 
   
-export class RequestLeaveFilterDto { 
-  year!: Number;
+export class RequestLeaveFilterDto extends CartableBaseModel {  
 }
 

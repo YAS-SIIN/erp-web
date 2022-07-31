@@ -8,3 +8,9 @@ export class BaseModel {
   status: number = 0;
   description: string = '';
 }
+
+
+export class CartableBaseModel {
+  year: number = 0;
+  status: number = 2; 
+}

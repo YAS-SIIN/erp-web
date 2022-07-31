@@ -9,10 +9,10 @@ import { ConfirmDialogComponent } from '../../others/confirm-dialog/confirm-dial
  
 @Component({
   selector: 'app-employees-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css']
+  templateUrl: './employee.component.html'
 })
 export class EmployeeComponent implements OnInit {
+  groupTitle = 'کارمندان';
   title = 'کارمندان';
  
   _employeeService: EmployeeService; 
@@ -55,7 +55,7 @@ export class EmployeeComponent implements OnInit {
           this.dataList = data.data
         },
         (responseError: HttpErrorResponse) => { 
-          this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
+          this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
         });
   }
 
@@ -109,7 +109,7 @@ export class EmployeeComponent implements OnInit {
             this.getGridList();
           },
           (responseError: HttpErrorResponse) => { 
-            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
+            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
           });
     });  
   }
@@ -131,7 +131,7 @@ export class EmployeeComponent implements OnInit {
             this.getGridList();
           },
           (responseError: HttpErrorResponse) => { 
-            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
+            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
           });
     });   
      

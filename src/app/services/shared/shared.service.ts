@@ -22,20 +22,19 @@ export class SharedService {
   public yearMask = [/[1-4]/,/\d/,/\d/,/\d/];
 
   //Enums
-  public baseStatus: string[] =    ['غیرفعال', 'فعال', '', 'حذف شده'];
+  public baseStatus: string[] =    ['غیرفعال', 'تایید شده', '', 'حذف شده'];
+  public cartableStatus: string[] =    ['غیرفعال', 'تایید شده', 'همه'];
   public leaveTypeList: string[] = [ 'استحقاقی', 'استعلاجی', 'بدون حقوق'];
   public requestLeaveTypeList: string[] = [ 'روزانه', 'ساعتی' ];
   
   private _http: HttpClient;
 
- 
+
   constructor(private toastr : ToastrService, http: HttpClient) {
     this._http = http;
    }
  
  
-   
-
   toastError(message: string, title: string = 'Error') {
     this.toastr.error(message, title);
   }
@@ -61,7 +60,7 @@ export class SharedService {
         this.dateNow = data;
       },
       (responseError: HttpErrorResponse) => { 
-        this.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
+        this.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
       });
   }
 
@@ -86,7 +85,7 @@ export class SharedService {
             });
           } else {
             // for cross field validations -> show the validation error at the top of the screen
-            this.toastError('خطایی در انجام عملیات رخ داده است' + '|' + modelStateErrors.error.error_description, `کد خطای ${modelStateErrors.error.error_code}`);
+            this.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + modelStateErrors.error.error_description, `کد خطای ${modelStateErrors.error.error_code}`);
           }
         }
       }

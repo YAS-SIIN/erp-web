@@ -12,11 +12,12 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-cartables-cartable',
-  templateUrl: './cartable.component.html',
-  styleUrls: ['./cartable.component.css']
+  templateUrl: './cartable.component.html'
 })
 export class CartableComponent implements OnInit {
+  groupTitle = 'کارتابل';
   title = 'کارتابل';
+
  
   _requestLeaveService: RequestLeaveService; 
   _sharedService: SharedService; 
@@ -29,7 +30,6 @@ export class CartableComponent implements OnInit {
   pnlElements = false; 
   pnlFormView = false; 
   showRegisterButton = true; 
-
  
   displayedColumns: string[] = ['leaveType', 'requestLeaveType', 'fromDate_toDate', 'status', 'description', 'actions'];
   NewEditRowModel: RequestLeaveModelData = new RequestLeaveModelData; 
@@ -55,7 +55,7 @@ export class CartableComponent implements OnInit {
           this.dataList = data.data
         },
         (responseError: HttpErrorResponse) => { 
-          this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
+          this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
         });
   }
  
@@ -91,7 +91,7 @@ export class CartableComponent implements OnInit {
             this.getGridList();
           },
           (responseError: HttpErrorResponse) => { 
-            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
+            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
           });
     });  
   }
@@ -113,7 +113,7 @@ export class CartableComponent implements OnInit {
             this.getGridList();
           },
           (responseError: HttpErrorResponse) => { 
-            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + '|' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
+            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
           });
     });   
      
