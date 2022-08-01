@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, NgForm } from '@angular/forms';   
+import { FormBuilder, NgForm, Validators } from '@angular/forms';   
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog'; 
 import { SharedService } from 'src/app/services/shared/shared.service';
-import { ConfirmDialogComponent } from '../../others/confirm-dialog/confirm-dialog.component';
-import { RequestLeaveService } from 'src/app/services/inout/request-leave.service';
-import { RequestLeaveFilterDto, RequestLeaveModelData, RequestLeaveResponseModel } from 'src/app/models/request-leave/request-leave-model';
-import { filter } from 'rxjs';
+import { ConfirmDialogComponent } from '../../others/confirm-dialog/confirm-dialog.component'; 
+
+import { CartableService } from 'src/app/services/cartables/cartable.service';
+import { CartableBaseModel } from 'src/app/models/base-model';
+import { SPCartableListModelData, SPCartableListResponseModel } from 'src/app/models/cartables/cartable-model';
+import { ApiPath } from 'src/app/apiPath';
+import { environment } from 'src/environments/environment';
  
  
 
@@ -19,39 +22,51 @@ export class CartableComponent implements OnInit {
   title = 'کارتابل';
 
  
-  _requestLeaveService: RequestLeaveService; 
+  _cartableService: CartableService; 
   _sharedService: SharedService; 
   public _dialog: MatDialog
   
   SaveMode = 'New'; 
   pnlBackForms = false;  
-  pnlFirstPage = true; 
-  pnlCreateEditForm = false; 
-  pnlElements = false; 
-  pnlFormView = false; 
-  showRegisterButton = true; 
+  pnlFirstPage = true;   
+  pnlSign = false;   
+  
+  pnlRequestLeave = false;
  
-  displayedColumns: string[] = ['leaveType', 'requestLeaveType', 'fromDate_toDate', 'status', 'description', 'actions'];
-  NewEditRowModel: RequestLeaveModelData = new RequestLeaveModelData; 
-  filterData: RequestLeaveFilterDto = new RequestLeaveFilterDto; 
-  dataList: RequestLeaveModelData[] = []; 
+  firstFormGroup = this.formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this.formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  thirdFormGroup = this.formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+
+  displayedColumns: string[] = ['FormNameFa', 'signTitleFa', 'fieldCode', 'requestDate', 'actions'];
+  NewEditRowModel: SPCartableListModelData = new SPCartableListModelData; 
+  RowModel: any; 
+  filterData: CartableBaseModel = new CartableBaseModel; 
+  dataList: SPCartableListModelData[] = []; 
  
 
-  constructor(private formBuilder: FormBuilder, sharedService: SharedService, requestLeaveService: RequestLeaveService, dialog: MatDialog) {
-    this._requestLeaveService = requestLeaveService; 
+  constructor(private formBuilder: FormBuilder, sharedService: SharedService, cartableService: CartableService, dialog: MatDialog) {
+    this._cartableService = cartableService; 
     this._sharedService = sharedService; 
     this._dialog = dialog; 
   }
  
  
   ngOnInit(): void { 
+    this.filterData.status = 0;
+    this._sharedService.GetPersianDate();
+    this.filterData.year = parseInt(this._sharedService.dateNow.substr(0,4));
    this.getGridList();
-   this._sharedService.GetPersianDate();
   }
  
   getGridList() {  
-      this._requestLeaveService.GetAllData(this.filterData).subscribe(
-        (data: RequestLeaveResponseModel) => { 
+      this._cartableService.GetAllData(this.filterData).subscribe(
+        (data: SPCartableListResponseModel) => { 
           this.dataList = data.data
         },
         (responseError: HttpErrorResponse) => { 
@@ -59,33 +74,56 @@ export class CartableComponent implements OnInit {
         });
   }
  
-  onBackAll() {
-    this.pnlFirstPage = true;
-    this.pnlBackForms = false;
-    this.pnlCreateEditForm = false;
-    this.pnlElements = false;
-    this.pnlFormView = false;
-  }
-   
-  onDetail(SelectedRow: RequestLeaveModelData){ 
-    debugger
-    this.SaveMode = 'Detail'; 
-    this.showRegisterButton = false;
-    this.NewEditRowModel=SelectedRow;
+  onOpenCreateEditFormPanel() {
+    this.pnlFirstPage = false; 
+    this.pnlBackForms = true; 
+    this.NewEditRowModel = new SPCartableListModelData;  
+    this.RowModel = null; 
+    this.pnlSign = true; 
   }
 
-  onDelete(SelectedRow: RequestLeaveModelData){
+  onBackAll() {
+    this.pnlFirstPage = true;
+    this.pnlBackForms = false; 
+    this.pnlSign = false;
+
+    this.pnlRequestLeave = false;
+  }
+   
+  onDetail(SelectedRow: SPCartableListModelData){ 
+    debugger
+    this.SaveMode = 'Detail';  
+    this.NewEditRowModel=SelectedRow;
+    
+    switch (this.NewEditRowModel.carTableId) {
+      case 2:
+        this._cartableService.GetRequestLeaveData(this.NewEditRowModel.fieldCode).subscribe(
+          (data: any) => { 
+            this.onOpenCreateEditFormPanel();
+            this.RowModel = data.data
+            this.pnlRequestLeave = true;
+          },
+          (responseError: HttpErrorResponse) => { 
+            this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
+          });
+        
+        break;
+      case 3:
+        this.pnlRequestLeave = true;
+    }
+  }
+
+  onDelete(SelectedRow: SPCartableListModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
-      data: { message: "آیا مطمعن هستید ؟" }
+      data: { message: "آیا مطمئن هستید ؟" }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      debugger
+    dialogRef.afterClosed().subscribe(result => { 
       if (result == undefined)
         return;
 
-        this._requestLeaveService.Delete(SelectedRow.id).subscribe(
-          (data: RequestLeaveResponseModel) => {
+        this._cartableService.Delete(SelectedRow.fieldCode).subscribe(
+          (data: SPCartableListResponseModel) => {
      
             this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
             this.getGridList();
@@ -96,19 +134,18 @@ export class CartableComponent implements OnInit {
     });  
   }
   
-  onConfirm(SelectedRow: RequestLeaveModelData){
+  onConfirm(SelectedRow: SPCartableListModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
-      data: { message: "آیا مطمعن هستید ؟" }
+      data: { message: "آیا مطمئن هستید ؟" }
     });
     
-    dialogRef.afterClosed().subscribe(result => {
-      debugger
+    dialogRef.afterClosed().subscribe(result => { 
       if (result == undefined)
         return;
 
-        this._requestLeaveService.Confirm(SelectedRow.id).subscribe(
-          (data: RequestLeaveResponseModel) => { 
+        this._cartableService.Confirm(SelectedRow.fieldCode).subscribe(
+          (data: SPCartableListResponseModel) => { 
             this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
             this.getGridList();
           },

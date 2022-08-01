@@ -22,13 +22,9 @@ export class EmployeeComponent implements OnInit {
   SaveMode = 'New'; 
   pnlBackForms = false;  
   pnlFirstPage = true; 
-  pnlCreateEditForm = false;  
-  pnlElements = false; 
-  pnlFormView = false; 
+  pnlCreateEditForm = false;    
   showRegisterButton = true; 
-
  
-
   displayedColumns: string[] = ['name', 'empoloyeeNo', 'status', 'description', 'actions'];
   NewEditRowModel: EmployeeModelData = new EmployeeModelData; 
   dataList: EmployeeModelData[] = []; 
@@ -62,8 +58,7 @@ export class EmployeeComponent implements OnInit {
   onOpenCreateEditFormPanel() {
     this.pnlFirstPage = false;
     this.pnlCreateEditForm = true;
-    this.pnlBackForms = true;
-    this.pnlElements = false;
+    this.pnlBackForms = true; 
     this.showRegisterButton = true;
     this.NewEditRowModel = new EmployeeModelData;
   }
@@ -71,9 +66,7 @@ export class EmployeeComponent implements OnInit {
   onBackAll() {
     this.pnlFirstPage = true;
     this.pnlBackForms = false;
-    this.pnlCreateEditForm = false;
-    this.pnlElements = false;
-    this.pnlFormView = false;
+    this.pnlCreateEditForm = false; 
   }
  
   onEdit(SelectedRow: EmployeeModelData){ 
@@ -95,10 +88,9 @@ export class EmployeeComponent implements OnInit {
   onDelete(SelectedRow: EmployeeModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
-      data: { message: "آیا مطمعن هستید ؟" }
+      data: { message: "آیا مطمئن هستید ؟" }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      debugger
+    dialogRef.afterClosed().subscribe(result => { 
       if (result == undefined)
         return;
 
@@ -117,11 +109,10 @@ export class EmployeeComponent implements OnInit {
   onConfirm(SelectedRow: EmployeeModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
-      data: { message: "آیا مطمعن هستید ؟" }
+      data: { message: "آیا مطمئن هستید ؟" }
     });
     
-    dialogRef.afterClosed().subscribe(result => {
-      debugger
+    dialogRef.afterClosed().subscribe(result => { 
       if (result == undefined)
         return;
 
@@ -140,8 +131,7 @@ export class EmployeeComponent implements OnInit {
   onCreateEditElements(SelectedRow: EmployeeModelData){
     this.pnlFirstPage = false;
     this.pnlBackForms = true;
-    this.pnlCreateEditForm = false;
-    this.pnlElements = true;
+    this.pnlCreateEditForm = false; 
     this.NewEditRowModel=SelectedRow;  
   }
   

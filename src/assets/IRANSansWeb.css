@@ -31,6 +31,10 @@ mat-form-field {
     font-family: 'IRANSansWeb' !important;
 }
 
+mat-stepper {
+    font-family: 'IRANSansWeb' !important;
+}
+
 label {
     font-family: 'IRANSansWeb' !important;
 }

@@ -1,6 +1,17 @@
 <mat-card> {{groupTitle}} <mat-icon>arrow_left</mat-icon> {{title}} </mat-card>
+  
+<mat-grid-list cols="5" rowHeight="100px">
+  <mat-grid-tile > 
+  </mat-grid-tile> 
+  <mat-grid-tile > 
+  </mat-grid-tile> 
+  
+  <mat-grid-tile class="text-center">
  
-<br>
+    <button mat-raised-button class="me-1 btn btn-warning" *ngIf="pnlBackForms" (click)="onBackAll()">بازگشت</button>    
+  </mat-grid-tile>
+</mat-grid-list>
+ 
 <div class="row" id="pnlFilter" class="panel" *ngIf="pnlFirstPage">
 
     <mat-expansion-panel [expanded]="false">
@@ -9,17 +20,26 @@
             <mat-icon>search</mat-icon> جستجو 
           </mat-panel-title> 
         </mat-expansion-panel-header> 
-    <div class="row">
+        <div class="row">
          
-      <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>از سال</mat-label>
-          <input matInput class="ltrInput" [(ngModel)]="filterData.year" name="year" [textMask]="{mask: _sharedService.yearMask}" pattern="[1-4]\d{3}" value="{{_sharedService.dateNow.substr(0,4)}}" #year="ngModel">
-        
-        </mat-form-field>  
-      </div>
- 
-     </div>
+          <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>از سال</mat-label>
+              <input matInput class="ltrInput" [(ngModel)]="filterData.year" name="year" [textMask]="{mask: _sharedService.yearMask}" pattern="[1-4]\d{3}" value="{{_sharedService.dateNow.substr(0,4)}}" #year="ngModel">
+            
+            </mat-form-field>  
+          </div>
+     
+          <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <mat-label>نوع تایید</mat-label>
+            <br>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="filterData.status" name="status" #status="ngModel">
+              <mat-radio-button value="0" checked="true">تایید نشده</mat-radio-button>  
+              <mat-radio-button value="1">تایید شده</mat-radio-button>  
+            </mat-radio-group>   
+          </div>
+     
+         </div>
  
       
     <div Class="row">
@@ -31,7 +51,7 @@
         </mat-grid-tile> 
         
         <mat-grid-tile class="text-center">
-          <button *ngIf="showRegisterButton" mat-raised-button color="primary" (click)="getGridList()">جستجو</button> 
+          <button mat-raised-button color="primary" (click)="getGridList()">جستجو</button> 
         </mat-grid-tile>
       </mat-grid-list>
  
@@ -51,36 +71,29 @@
         </mat-panel-title> 
       </mat-expansion-panel-header>
      
-      <table mat-table matSort class="mat-elevation-z8" style="width: 100%;" [dataSource]="dataList" >
-          <ng-container matColumnDef="leaveType">
-              <th  mat-header-cell *matHeaderCellDef> نوع درخواست </th>
-              <td mat-cell *matCellDef="let datarow"> مرخصی </td>
-          </ng-container>  
-          <ng-container matColumnDef="requestLeaveType">
+      <table mat-table matSort class="mat-elevation-z8" style="width: 100%;" [dataSource]="dataList" > 
+          <ng-container matColumnDef="FormNameFa">
             <th  mat-header-cell *matHeaderCellDef> کد درخواست </th>
-            <td mat-cell *matCellDef="let datarow"> {{_sharedService.requestLeaveTypeList[datarow.requestLeaveType]}} </td>
+            <td mat-cell *matCellDef="let datarow"> {{datarow.formNameFa}} </td>
           </ng-container>   
-          <ng-container matColumnDef="fromDate_toDate">
-            <th  mat-header-cell *matHeaderCellDef>  تاریخ درخواست </th>
-              <td mat-cell *matCellDef="let datarow"> <span *ngIf="datarow.requestLeaveType == 0">{{datarow.fromDate}} </span> </td>
+          <ng-container matColumnDef="signTitleFa">
+            <th  mat-header-cell *matHeaderCellDef>  نوع امضاء </th>
+              <td mat-cell *matCellDef="let datarow">{{datarow.signTitleFa}} </td>
           </ng-container>   
-          <ng-container matColumnDef="status">
-              <th  mat-header-cell *matHeaderCellDef> وضعیت </th>
-              <td mat-cell *matCellDef="let datarow"> {{_sharedService.baseStatus[datarow.status]}} </td>
+          <ng-container matColumnDef="fieldCode">
+              <th  mat-header-cell *matHeaderCellDef> کد درخواست </th>
+              <td mat-cell *matCellDef="let datarow"> {{datarow.fieldCode}} </td>
           </ng-container>    
-          <ng-container matColumnDef="description">
-              <th  mat-header-cell *matHeaderCellDef> شرح </th>
-              <td mat-cell *matCellDef="let datarow"> {{datarow.description}} </td>
+          <ng-container matColumnDef="requestDate">
+              <th  mat-header-cell *matHeaderCellDef> تاریخ درخواست </th>
+              <td mat-cell *matCellDef="let datarow"> {{datarow.requestDate}} </td>
           </ng-container>   
           <ng-container  matColumnDef="actions">
             <th  mat-header-cell *matHeaderCellDef> عملیات </th>
-            <td mat-cell *matCellDef="let datarow">
-              <button mat-icon-button color="warn" (click)="onDelete(datarow)" *ngIf="datarow.status == 0" aria-label="Example icon-button with a delete icon">
-                <mat-icon>cancel</mat-icon>
-              </button> 
-              <button mat-icon-button (click)="onConfirm(datarow)" *ngIf="datarow.status == 0" aria-label="Example icon-button with a edit icon">
-                <mat-icon class="text text-success">check</mat-icon>
-              </button> 
+            <td mat-cell *matCellDef="let datarow"> 
+              <button mat-icon-button (click)="onDetail(datarow)" aria-label="Example icon-button with a edit icon">
+                <mat-icon>assignment</mat-icon>
+              </button>  
             </td>
   
           </ng-container>   
@@ -95,4 +108,52 @@
 
 </div>
 
+<app-request-leave-register-panel *ngIf="pnlRequestLeave" [Model]="RowModel" (submitClicked)="null" [showRegisterButton]="false"></app-request-leave-register-panel>
+
+
+<br>
  
+<div class="row" id="pnlSign" class="panel" *ngIf="pnlSign">
+
+  <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>fingerprint</mat-icon> امضاء 
+        </mat-panel-title> 
+      </mat-expansion-panel-header> 
+      <div class="row">
+       
+ 
+        <mat-stepper
+        class="example-stepper" >
+        <mat-step [stepControl]="firstFormGroup" label="تنظیم درخواست">
+          <ng-template matStepLabel> 
+            <span>تنظیم درخواست</span> 
+          </ng-template>
+          <ng-template matStepContent> 
+            <span>یاسین اسدنژاد</span>
+            <br>
+            <span>تاریخ امضاء : 1401/05/08</span> 
+          </ng-template>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" label="تایید کننده درخواست">
+          <ng-template matStepLabel> 
+            <span>تایید کننده درخواست</span> 
+          </ng-template>
+          <ng-template matStepContent> 
+            <span>کیوان سلیمانی</span>
+            <br>
+            <span>تاریخ امضاء : 1401/05/09</span>
+          </ng-template>
+        </mat-step> 
+        <mat-step [stepControl]="thirdFormGroup" label="پایان">
+          <form [formGroup]="thirdFormGroup"> 
+          </form>
+        </mat-step>
+      </mat-stepper>
+
+       </div>
+
+ 
+</mat-expansion-panel>
+</div>

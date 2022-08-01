@@ -7,15 +7,15 @@ export class RequestLeaveResponseModel extends BaseResponseModel {
 
 export class RequestLeaveModelData extends BaseModel { 
     requestDate!: string;
-    requestLeaveType!: Number;
-    leaveType!: Number;
+    requestLeaveType!: number;
+    leaveType!: number;
     fromDate: string = "";
     toDate: string = "";
     timeLeaveDate: string = "";
     fromTime:  string = "";
     toTime: string = "";
-    leaveDay!: Number;
-    leaveTime!: Number;
+    leaveDay!: number;
+    leaveTime!: number;
     leaveReason!: string;
 }
 

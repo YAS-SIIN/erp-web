@@ -25,9 +25,7 @@ export class RequestLeaveComponent implements OnInit {
   SaveMode = 'New'; 
   pnlBackForms = false;  
   pnlFirstPage = true; 
-  pnlCreateEditForm = false; 
-  pnlElements = false; 
-  pnlFormView = false; 
+  pnlCreateEditForm = false;  
   showRegisterButton = true; 
 
  
@@ -45,9 +43,10 @@ export class RequestLeaveComponent implements OnInit {
  
  
   ngOnInit(): void { 
+    this.filterData.status = 2;
+    this._sharedService.GetPersianDate();
+    this.filterData.year = parseInt(this._sharedService.dateNow.substr(0,4));
    this.getGridList();
-   this._sharedService.GetPersianDate();
-   this.filterData.status = 2;
   }
  
   getGridList() {  
@@ -63,20 +62,19 @@ export class RequestLeaveComponent implements OnInit {
   onOpenCreateEditFormPanel() {
     this.pnlFirstPage = false;
     this.pnlCreateEditForm = true;
-    this.pnlBackForms = true;
-    this.pnlElements = false;
+    this.pnlBackForms = true; 
     this.NewEditRowModel = new RequestLeaveModelData;
     this.NewEditRowModel.fromDate = this._sharedService.dateNow;
     this.NewEditRowModel.toDate = this._sharedService.dateNow;
+    this.NewEditRowModel.requestDate = this._sharedService.dateNow;
+    this.NewEditRowModel.timeLeaveDate = this._sharedService.dateNow;
     this.showRegisterButton = true; 
   }
 
   onBackAll() {
     this.pnlFirstPage = true;
     this.pnlBackForms = false;
-    this.pnlCreateEditForm = false;
-    this.pnlElements = false;
-    this.pnlFormView = false;
+    this.pnlCreateEditForm = false; 
   }
   
   onEdit(SelectedRow: RequestLeaveModelData){ 
@@ -98,10 +96,9 @@ export class RequestLeaveComponent implements OnInit {
   onDelete(SelectedRow: RequestLeaveModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
-      data: { message: "آیا مطمعن هستید ؟" }
+      data: { message: "آیا مطمئن هستید ؟" }
     });
     dialogRef.afterClosed().subscribe(result => {
-      debugger
       if (result == undefined)
         return;
 
@@ -120,11 +117,10 @@ export class RequestLeaveComponent implements OnInit {
   onConfirm(SelectedRow: RequestLeaveModelData){
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       width: '15vw',
-      data: { message: "آیا مطمعن هستید ؟" }
+      data: { message: "آیا مطمئن هستید ؟" }
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      debugger
       if (result == undefined)
         return;
 
@@ -143,8 +139,7 @@ export class RequestLeaveComponent implements OnInit {
   onCreateEditElements(SelectedRow: RequestLeaveModelData){
     this.pnlFirstPage = false;
     this.pnlBackForms = true;
-    this.pnlCreateEditForm = false;
-    this.pnlElements = true;
+    this.pnlCreateEditForm = false; 
     this.NewEditRowModel=SelectedRow;  
   }
   

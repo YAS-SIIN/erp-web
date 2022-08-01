@@ -32,6 +32,7 @@ export class RequestLeaveRegisterPanelComponent implements OnInit {
  
  
   ngOnInit(): void { 
+    debugger
     this.onChangeRequestLeaveType(); 
   }
   
