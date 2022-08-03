@@ -4,10 +4,8 @@
   <mat-grid-tile > 
   </mat-grid-tile> 
   <mat-grid-tile > 
-  </mat-grid-tile> 
-  
-  <mat-grid-tile class="text-center">
- 
+  </mat-grid-tile>  
+  <mat-grid-tile class="text-center"> 
     <button mat-raised-button class="me-1 btn btn-warning" *ngIf="pnlBackForms" (click)="onBackAll()">بازگشت</button>    
   </mat-grid-tile>
 </mat-grid-list>
@@ -121,35 +119,46 @@
           <mat-icon>fingerprint</mat-icon> امضاء 
         </mat-panel-title> 
       </mat-expansion-panel-header> 
-      <div class="row">
-       
- 
+    
+      <div class="row"> 
+          
+        <mat-grid-list cols="5" rowHeight="100px" *ngIf="btnConfirm">
+          <mat-grid-tile > 
+          </mat-grid-tile> 
+          <mat-grid-tile > 
+          </mat-grid-tile>  
+          <mat-grid-tile class="text-center"> 
+            <button mat-raised-button class="me-1 btn btn-success" (click)="onConfirm()">امضاء</button>      
+          </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="5" rowHeight="100px" *ngIf="btnDeleteConfirm">
+          <mat-grid-tile > 
+          </mat-grid-tile> 
+          <mat-grid-tile > 
+          </mat-grid-tile>  
+          <mat-grid-tile class="text-center"> 
+            <button mat-raised-button class="me-1 btn btn-danger"(click)="onDeleteConfirm()">حذف امضاء</button>        
+          </mat-grid-tile>
+        </mat-grid-list>
+
         <mat-stepper
         class="example-stepper" >
-        <mat-step [stepControl]="firstFormGroup" label="تنظیم درخواست">
-          <ng-template matStepLabel> 
-            <span>تنظیم درخواست</span> 
+ 
+        <mat-step *ngFor="let item of CartableRequestModel" label="{{item.cartableSigne.signTitleFa}}" [stepControl]="item.cartableSigne.signTitle">
+          <ng-template matStepLabel > 
+            
+            <span>{{item.cartableSigne.signTitleFa}}</span> 
           </ng-template>
           <ng-template matStepContent> 
-            <span>یاسین اسدنژاد</span>
+            <span>{{item.cartableSigned[0].employee}}</span>
             <br>
-            <span>تاریخ امضاء : 1401/05/08</span> 
+            <span>زمان امضاء : {{item.cartableSigned[0].signDate}} - {{item.cartableSigned[0].signTime}}</span> 
+            <br>
+            <span>شرح : </span> 
           </ng-template>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup" label="تایید کننده درخواست">
-          <ng-template matStepLabel> 
-            <span>تایید کننده درخواست</span> 
-          </ng-template>
-          <ng-template matStepContent> 
-            <span>کیوان سلیمانی</span>
-            <br>
-            <span>تاریخ امضاء : 1401/05/09</span>
-          </ng-template>
-        </mat-step> 
-        <mat-step [stepControl]="thirdFormGroup" label="پایان">
-          <form [formGroup]="thirdFormGroup"> 
-          </form>
-        </mat-step>
+ 
       </mat-stepper>
 
        </div>

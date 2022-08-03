@@ -26,6 +26,13 @@ export class CartableService {
      
     });
   }
+  
+  GetCartableRequestData(Id: string, FormName: string) {
+     
+    let url = `${this._controllerPath}/Get?Id=${Id}&FormName=${FormName}`;
+
+    return this._http.get<any>(url, {});
+  }
 
   Confirm(Id: string) {
      
