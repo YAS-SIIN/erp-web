@@ -4,7 +4,7 @@
     <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <mat-icon>border_color</mat-icon>  ثبت / ویرایش  
+            <mat-icon>border_color</mat-icon>  ثبت / ویرایش / جزئیات  
           </mat-panel-title> 
         </mat-expansion-panel-header>
         <form #form="ngForm" (submit)="onSubmitClick(form)" novalidate>
@@ -39,7 +39,7 @@
       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngIf="!timeLeave">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>از تاریخ</mat-label>
-          <input matInput [(ngModel)]="Model.fromDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="fromDate" #fromDate="ngModel" required=!timeLeave pattern="[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))">
+          <input matInput [(ngModel)]="Model.fromDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="fromDate" #fromDate="ngModel" required=!timeLeave [pattern]="_sharedService.datePatern">
        
           <mat-error *ngIf="!form.controls['fromDate'].valid && form.controls['fromDate'].touched"class="mat-text-warn">
             <app-validation-message [control]="form.controls['fromDate']" fieldDisplayName="از تاریخ"></app-validation-message>
@@ -50,7 +50,7 @@
       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngIf="!timeLeave">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>تا تاریخ</mat-label>
-          <input matInput [(ngModel)]="Model.toDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="toDate" #toDate="ngModel" required=!timeLeave pattern="[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))">
+          <input matInput [(ngModel)]="Model.toDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="toDate" #toDate="ngModel" required=!timeLeave [pattern]="_sharedService.datePatern">
           <mat-error *ngIf="!form.controls['toDate'].valid && form.controls['toDate'].touched"class="mat-text-warn">
             <app-validation-message [control]="form.controls['toDate']" fieldDisplayName="تا تاریخ"></app-validation-message>
           </mat-error>
@@ -60,7 +60,7 @@
       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngIf="timeLeave">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>تاریخ</mat-label>
-          <input matInput [(ngModel)]="Model.timeLeaveDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="timeLeaveDate" #toDate="ngModel" required=timeLeave pattern="[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))">
+          <input matInput [(ngModel)]="Model.timeLeaveDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="timeLeaveDate" #toDate="ngModel" required=timeLeave [pattern]="_sharedService.datePatern">
           <mat-error *ngIf="!form.controls['timeLeaveDate'].valid && form.controls['timeLeaveDate'].touched"class="mat-text-warn">
             <app-validation-message [control]="form.controls['timeLeaveDate']" fieldDisplayName="تاریخ"></app-validation-message>
           </mat-error>

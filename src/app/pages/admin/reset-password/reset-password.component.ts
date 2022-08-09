@@ -36,18 +36,18 @@ export class ResetPasswordComponent implements OnInit {
   }
  
   Submit() {
-    if (!this.registrationFormGroup.valid)
-      return
+    // if (!this.registrationFormGroup.valid)
+    //   return
 
-      this._accountService.ResetPassword(
-        this.registrationFormGroup.get("mobileNumber")?.value,
-        this.registrationFormGroup.get("password")?.value,
-        this.registrationFormGroup.get("verificationCode")?.value 
-      ).subscribe(() => {
-        this._sharedService.toastSuccess("Password reset successfully.");
-        this._router.navigate(["/login"]);
-      }, (error) => {
-        this._sharedService.toastError(error.error.error.error_description);
-      });
+    //   this._accountService.ResetPassword(
+    //     this.registrationFormGroup.get("mobileNumber")?.value,
+    //     this.registrationFormGroup.get("password")?.value,
+    //     this.registrationFormGroup.get("verificationCode")?.value 
+    //   ).subscribe(() => {
+    //     this._sharedService.toastSuccess("Password reset successfully.");
+    //     this._router.navigate(["/login"]);
+    //   }, (error) => {
+    //     this._sharedService.toastError(error.error.error.error_description);
+    //   });
   }
 }

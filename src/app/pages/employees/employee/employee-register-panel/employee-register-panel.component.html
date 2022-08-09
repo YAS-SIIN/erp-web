@@ -5,7 +5,7 @@
     <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <mat-icon>border_color</mat-icon>  ثبت / ویرایش  
+            <mat-icon>border_color</mat-icon>  ثبت / ویرایش / جزئیات 
           </mat-panel-title> 
         </mat-expansion-panel-header>
         <form #form="ngForm" (submit)="onSubmitClick(form)" novalidate>
@@ -63,7 +63,7 @@
       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>تاریخ تولد</mat-label>
-          <input matInput [(ngModel)]="Model.dateOfBirth" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="dateOfBirth" #dateOfBirth="ngModel" required pattern="[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))">
+          <input matInput [(ngModel)]="Model.dateOfBirth" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="dateOfBirth" #dateOfBirth="ngModel" required [pattern]="_sharedService.datePatern">
           <mat-error *ngIf="!form.controls['dateOfBirth'].valid && form.controls['dateOfBirth'].touched"class="mat-text-warn">
             <app-validation-message [control]="form.controls['dateOfBirth']" fieldDisplayName="تاریخ تولد"></app-validation-message>
           </mat-error>
@@ -83,7 +83,7 @@
       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>تاریخ استخدام</mat-label>
-          <input matInput [(ngModel)]="Model.hireDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="hireDate" #hireDate="ngModel" required pattern="[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))">
+          <input matInput [(ngModel)]="Model.hireDate" [textMask]="{mask: _sharedService.dateMask}" class="ltrInput" name="hireDate" #hireDate="ngModel" required [pattern]="_sharedService.datePatern">
           <mat-error *ngIf="!form.controls['hireDate'].valid && form.controls['hireDate'].touched"class="mat-text-warn">
             <app-validation-message [control]="form.controls['hireDate']" fieldDisplayName="تاریخ استخدام"></app-validation-message>
           </mat-error>
@@ -93,7 +93,7 @@
       <div Class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>شماره موبایل</mat-label>
-          <input matInput [(ngModel)]="Model.mobileNo" type="number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="ltrInput" name="mobileNo" #mobileNo="ngModel" required>
+          <input matInput [(ngModel)]="Model.mobileNo" type="number" [pattern]="_sharedService.mobilePatern" class="ltrInput" name="mobileNo" #mobileNo="ngModel" required>
           <mat-error *ngIf="!form.controls['mobileNo'].valid && form.controls['mobileNo'].touched"class="mat-text-warn">
             <app-validation-message [control]="form.controls['mobileNo']" fieldDisplayName="شماره موبایل"></app-validation-message>
           </mat-error>
