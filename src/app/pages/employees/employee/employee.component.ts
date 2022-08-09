@@ -6,6 +6,7 @@ import { EmployeeService } from 'src/app/services/employees/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../others/confirm-dialog/confirm-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
  
 @Component({
   selector: 'app-employees-employee',
@@ -27,8 +28,8 @@ export class EmployeeComponent implements OnInit {
  
   displayedColumns: string[] = ['name', 'empoloyeeNo', 'status', 'description', 'actions'];
   NewEditRowModel: EmployeeModelData = new EmployeeModelData; 
-  dataList: EmployeeModelData[] = []; 
- 
+  //dataList: EmployeeModelData[] = []; 
+  dataList:MatTableDataSource<EmployeeModelData>=new MatTableDataSource<EmployeeModelData>;
 
   constructor(
     private formBuilder: FormBuilder, sharedService: SharedService, employeeService: EmployeeService, dialog: MatDialog) {
@@ -48,7 +49,7 @@ export class EmployeeComponent implements OnInit {
       this._employeeService.GetAllData().subscribe(
         (data: EmployeeResponseModel) => {
           debugger
-          this.dataList = data.data
+          this.dataList = new MatTableDataSource(data.data)
         },
         (responseError: HttpErrorResponse) => { 
           this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
@@ -187,6 +188,11 @@ export class EmployeeComponent implements OnInit {
 
     
   }
+  applyFilter(event: Event) {
+    debugger
+     const filterValue = (event.target as HTMLInputElement).value;
+     this.dataList.filter = filterValue
+  } 
 }
  
  
