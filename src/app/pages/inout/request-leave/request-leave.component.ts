@@ -7,6 +7,7 @@ import { ConfirmDialogComponent } from '../../others/confirm-dialog/confirm-dial
 import { RequestLeaveService } from 'src/app/services/inout/request-leave.service';
 import { RequestLeaveFilterDto, RequestLeaveModelData, RequestLeaveResponseModel } from 'src/app/models/request-leave/request-leave-model';
 import { filter } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
  
  
 
@@ -31,9 +32,8 @@ export class RequestLeaveComponent implements OnInit {
  
   displayedColumns: string[] = ['leaveType', 'requestLeaveType', 'fromDate_toDate', 'fromTime_toTime', 'status', 'description', 'actions'];
   NewEditRowModel: RequestLeaveModelData = new RequestLeaveModelData; 
-  filterData: RequestLeaveFilterDto = new RequestLeaveFilterDto; 
-  dataList: RequestLeaveModelData[] = []; 
- 
+  filterData: RequestLeaveFilterDto = new RequestLeaveFilterDto;  
+  dataList:MatTableDataSource<RequestLeaveModelData>=new MatTableDataSource<RequestLeaveModelData>;
 
   constructor(private formBuilder: FormBuilder, sharedService: SharedService, requestLeaveService: RequestLeaveService, dialog: MatDialog) {
     this._requestLeaveService = requestLeaveService; 
@@ -52,7 +52,7 @@ export class RequestLeaveComponent implements OnInit {
   getGridList() {  
       this._requestLeaveService.GetAllData(this.filterData).subscribe(
         (data: RequestLeaveResponseModel) => { 
-          this.dataList = data.data
+          this.dataList = new MatTableDataSource(data.data)
         },
         (responseError: HttpErrorResponse) => { 
           this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
@@ -190,6 +190,14 @@ export class RequestLeaveComponent implements OnInit {
         });
     } 
   }
+
+  
+  applyFilter(event: Event) {
+    debugger
+     const filterValue = (event.target as HTMLInputElement).value;
+     this.dataList.filter = filterValue
+  } 
+  
 }
  
 

@@ -24,8 +24,8 @@ export class SharedService {
 
   //Paterns :
   public datePatern = "[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))";
-  public mobilePatern = "[0-9]{3}[0-9]{3}[0-9]{4}";
-  public passwordPatern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}";
+  public mobilePatern = "[0-9]{3}[0-9]{3}[0-9]{4}"; 
+  //public passwordPatern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$  (?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}";
   //Enums :
   public baseStatus: string[] =    ['غیرفعال', 'تایید شده', '', 'حذف شده'];
   public cartableStatus: string[] =    ['غیرفعال', 'تایید شده', 'همه'];

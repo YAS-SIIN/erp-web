@@ -182,17 +182,16 @@ export class EmployeeComponent implements OnInit {
         (responseError: HttpErrorResponse) => { 
           this._sharedService.processModelStateErrors(form, responseError); 
         });
-    }
-    
- 
-
-    
+    } 
   }
+  
   applyFilter(event: Event) {
     debugger
      const filterValue = (event.target as HTMLInputElement).value;
      this.dataList.filter = filterValue
   } 
+
+ 
 }
  
  

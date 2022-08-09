@@ -73,8 +73,11 @@
           <mat-icon>list_alt</mat-icon> اطلاعات {{title}} 
         </mat-panel-title> 
       </mat-expansion-panel-header>
-     
-      <table mat-table matSort class="mat-elevation-z8" style="width: 100%;" [dataSource]="dataList" >
+      <mat-form-field appearance="outline">
+        <mat-label>جستجو</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="جستجو" #input>
+      </mat-form-field>
+      <table mat-table matSort class="mat-elevation-z8" [dataSource]="dataList" >
           <ng-container matColumnDef="leaveType">
               <th  mat-header-cell *matHeaderCellDef> نوع مرخصی </th>
               <td mat-cell *matCellDef="let datarow"> {{_sharedService.leaveTypeList[datarow.leaveType]}} </td>
@@ -117,7 +120,7 @@
             </td>
   
           </ng-container>   
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <!-- <mat-paginator [length]="paytotalCount" [pageSize]="paginationService.pageSize" [pageSizeOptions]="paginationService.selectItemsPerPage"
