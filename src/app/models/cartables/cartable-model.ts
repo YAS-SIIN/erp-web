@@ -17,6 +17,8 @@ tableName!: string;
 formName!: string;
 formNameFa!: string;
 status!: number;
+eMPEmployeeId!: number;
+orderNo!: number;
 }
 
-  
+ 

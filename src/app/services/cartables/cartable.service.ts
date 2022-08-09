@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core'; 
 import { ApiPath } from 'src/app/apiPath'; 
 import { CartableBaseModel } from 'src/app/models/base-model';
-import { SPCartableListResponseModel } from 'src/app/models/cartables/cartable-model';
+import { SPCartableListModelData, SPCartableListResponseModel } from 'src/app/models/cartables/cartable-model';
 import { environment } from '../../../environments/environment'; 
 
 
@@ -27,18 +27,18 @@ export class CartableService {
     });
   }
   
-  GetCartableRequestData(Id: string, FormName: string) {
+  GetCartableRequestData(Id: string, TableName: string) {
      
-    let url = `${this._controllerPath}/Get?Id=${Id}&FormName=${FormName}`;
+    let url = `${this._controllerPath}/Get?Id=${Id}&TableName=${TableName}`;
 
     return this._http.get<any>(url, {});
   }
 
-  Confirm(Id: string) {
+  Confirm(data: SPCartableListModelData) {
      
-    let url = `${this._controllerPath}/Confirm?Id=${Id}`;
+    let url = `${this._controllerPath}/Confirm`;
 
-    return this._http.put<SPCartableListResponseModel>(url, {Id: Id}, {
+    return this._http.put<SPCartableListResponseModel>(url, data, {
      
     });
   }

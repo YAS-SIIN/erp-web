@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ApiPath } from 'src/app/apiPath';
 import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
 import { environment } from '../../../environments/environment';
-import { LoginDto, LoginResponseModel, SessionResponseModel } from '../../models/admin/account-model'; 
+import { LoginDto, LoginResponseModel, ResetPasswordDto, SessionResponseModel } from '../../models/admin/account-model'; 
 
 
 @Injectable({
@@ -75,14 +75,10 @@ export class AccountService implements OnInit {
   }
   
 
-  ResetPassword(mobileNumber: string, password: string, verificationCode: string) {
+  ResetPassword(data: ResetPasswordDto) {
     let url = `${this._controllerPath}/ResetPassword`;
 
-    return this._http.post(url, {
-      mobileNumber: mobileNumber,
-      password: password,
-      verificationCode: verificationCode
-    }, { 
+    return this._http.post(url, data, { 
     });
   }
   

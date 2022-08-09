@@ -5,7 +5,7 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Router } from '@angular/router';
 import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
 import { SharedService } from 'src/app/services/shared/shared.service';
-import { AccountService } from '../../services/admin/account.service';
+import { AccountService } from '../../../services/admin/account.service';
 
 interface FoodNode {
   name: string;

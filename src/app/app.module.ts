@@ -38,7 +38,7 @@ import { AuthInterceptor } from './auth.interceptor';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './pages/admin/login/login.component';
-import { MainComponent } from './pages/main/main.component'; 
+import { MainComponent } from './pages/main/main/main.component'; 
 import { EmployeeComponent } from './pages/employees/employee/employee.component';
 import { ValidationMessageComponent } from './pages/others/validation-message/validation-message.component';
 import { ConfirmDialogComponent } from './pages/others/confirm-dialog/confirm-dialog.component';
@@ -46,12 +46,14 @@ import { RequestLeaveComponent } from './pages/inout/request-leave/request-leave
 import { EmployeeRegisterPanelComponent } from './pages/employees/employee/employee-register-panel/employee-register-panel.component';
 import { RequestLeaveRegisterPanelComponent } from './pages/inout/request-leave/request-leave-register-panel/request-leave-register-panel.component';
 import { CartableComponent } from './pages/cartables/cartable/cartable.component';
+import { ChangePasswordComponent } from './pages/main/change-password/change-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MainComponent,
+    ChangePasswordComponent,
     DashboardComponent, 
     ValidationMessageComponent,
     ConfirmDialogComponent,

@@ -122,26 +122,17 @@
     
       <div class="row"> 
           
-        <mat-grid-list cols="5" rowHeight="100px" *ngIf="btnConfirm">
+        <mat-grid-list cols="5" rowHeight="100px">
           <mat-grid-tile > 
           </mat-grid-tile> 
           <mat-grid-tile > 
           </mat-grid-tile>  
           <mat-grid-tile class="text-center"> 
-            <button mat-raised-button class="me-1 btn btn-success" (click)="onConfirm()">امضاء</button>      
+            <button mat-raised-button class="me-1 btn btn-success" *ngIf="btnConfirm" (click)="onConfirm()" >امضاء</button>      
+            <button mat-raised-button class="me-1 btn btn-danger" *ngIf="!btnConfirm" (click)="onConfirm()">حذف امضاء</button>    
           </mat-grid-tile>
         </mat-grid-list>
-
-        <mat-grid-list cols="5" rowHeight="100px" *ngIf="btnDeleteConfirm">
-          <mat-grid-tile > 
-          </mat-grid-tile> 
-          <mat-grid-tile > 
-          </mat-grid-tile>  
-          <mat-grid-tile class="text-center"> 
-            <button mat-raised-button class="me-1 btn btn-danger"(click)="onDeleteConfirm()">حذف امضاء</button>        
-          </mat-grid-tile>
-        </mat-grid-list>
-
+ 
         <mat-stepper
         class="example-stepper" >
  

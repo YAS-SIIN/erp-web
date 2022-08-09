@@ -25,13 +25,11 @@ export class CartableComponent implements OnInit {
   _cartableService: CartableService; 
   _sharedService: SharedService; 
   public _dialog: MatDialog
-  
-  SaveMode = 'New'; 
+   
   pnlBackForms = false;  
   pnlFirstPage = true;   
   pnlSign = false;   
-  btnConfirm = false;  
-  btnDeleteConfirm = false;  
+  btnConfirm = false;   
   
   pnlRequestLeave = false;
  
@@ -57,6 +55,7 @@ export class CartableComponent implements OnInit {
   }
  
   getGridList() {  
+    debugger
       this._cartableService.GetAllData(this.filterData).subscribe(
         (data: SPCartableListResponseModel) => { 
           this.dataList = data.data
@@ -68,8 +67,7 @@ export class CartableComponent implements OnInit {
  
   onOpenCreateEditFormPanel() {
     this.pnlFirstPage = false; 
-    this.pnlBackForms = true; 
-    this.NewEditRowModel = new SPCartableListModelData;  
+    this.pnlBackForms = true;  
     this.RowModel = null; 
     this.pnlSign = true; 
   }
@@ -81,13 +79,11 @@ export class CartableComponent implements OnInit {
     this.pnlRequestLeave = false;
   }
    
-  onDetail(SelectedRow: SPCartableListModelData){ 
+  onDetail(SelectedRow: SPCartableListModelData){    
     debugger
-    this.SaveMode = 'Detail';  
     this.NewEditRowModel=SelectedRow;
-    this.btnConfirm = this.filterData.status == 0;
-    this.btnDeleteConfirm = this.filterData.status == 1;
-      this._cartableService.GetCartableRequestData(this.NewEditRowModel.fieldCode,this.NewEditRowModel.formName).subscribe(
+    this.btnConfirm = this.NewEditRowModel.status == 0; 
+      this._cartableService.GetCartableRequestData(this.NewEditRowModel.fieldCode,this.NewEditRowModel.tableName).subscribe(
           (data: any) => {  
             this.CartableRequestModel = data.data 
           });
@@ -139,19 +135,21 @@ export class CartableComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe(result => { 
+      debugger
       if (result == undefined)
         return;
 
-        this._cartableService.Confirm(this.NewEditRowModel.fieldCode).subscribe(
-          (data: SPCartableListResponseModel) => { 
-            this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
-            this.getGridList();
+        this._cartableService.Confirm(this.NewEditRowModel).subscribe(
+          (data: SPCartableListResponseModel) => {  
+            this.onBackAll();  
+    
+        this._sharedService.toastSuccess('عملیات با موفقیت انجام شد');
+        this.getGridList();
           },
           (responseError: HttpErrorResponse) => { 
             this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
           });
-    });   
-     
+    });    
   }
   
 }

@@ -16,12 +16,17 @@ export class SharedService {
   
   public dateNow: string='1111/11/11';
 
+  //Masks :
   public dateMask= [/\d/, /\d/,/\d/,/\d/, '/', /\d/, /\d/, '/', /\d/, /\d/];
   public timeMask= [/\d/, ':', /[0-5]/, /\d/];
   public mobileNumberMask = [/[0]/, /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   public yearMask = [/[1-4]/,/\d/,/\d/,/\d/];
 
-  //Enums
+  //Paterns :
+  public datePatern = "[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))";
+  public mobilePatern = "[0-9]{3}[0-9]{3}[0-9]{4}";
+  public passwordPatern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}";
+  //Enums :
   public baseStatus: string[] =    ['غیرفعال', 'تایید شده', '', 'حذف شده'];
   public cartableStatus: string[] =    ['غیرفعال', 'تایید شده', 'همه'];
   public leaveTypeList: string[] = [ 'استحقاقی', 'استعلاجی', 'بدون حقوق'];

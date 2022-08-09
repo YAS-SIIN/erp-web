@@ -1,25 +1,21 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, NgForm } from '@angular/forms'; 
-import { SharedService } from '../../../../services/shared/shared.service';
+import { SharedService } from '../../../services/shared/shared.service';
 import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
 import { EmployeeService } from 'src/app/services/employees/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../../others/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog'; 
 import { RequestLeaveModelData } from 'src/app/models/request-leave/request-leave-model';
  
 @Component({
-  selector: 'app-request-leave-register-panel',
-  templateUrl: './request-leave-register-panel.component.html'
+  selector: 'app-change-password',
+  templateUrl: './change-password.component.html'
 })
-export class RequestLeaveRegisterPanelComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit {
   title = 'مرخصی';
 
   _sharedService: SharedService; 
-
-  timeLeave = false; 
-  unpaidLeave = false; 
-  
+ 
  @Input() Model: RequestLeaveModelData = new RequestLeaveModelData; 
  @Input() showRegisterButton: boolean = false; 
  
@@ -31,16 +27,12 @@ export class RequestLeaveRegisterPanelComponent implements OnInit {
   }
  
  
-  ngOnInit(): void {  
-    this.onChangeRequestLeaveType(); 
+  ngOnInit(): void {   
   }
   
   onSubmitClick(form: NgForm) {
     this.submitClicked.emit(form);
   }
-
-  onChangeRequestLeaveType(){ 
-    this.timeLeave = this.Model.requestLeaveType == 0 ? false : true;
-  }
+ 
   }
  

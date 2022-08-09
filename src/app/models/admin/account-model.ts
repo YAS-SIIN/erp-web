@@ -28,3 +28,10 @@ export class SessionModel {
   token!: string;
   expirationDate!: Date;
 }
+
+
+export class ResetPasswordDto {
+  OldPassword!: string;
+  Password!: string;
+  RePassword!: string; 
+}
