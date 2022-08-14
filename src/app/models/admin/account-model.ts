@@ -35,3 +35,14 @@ export class ResetPasswordDto {
   Password!: string;
   RePassword!: string; 
 }
+
+export class UsersForModalResponseModel {
+  data!: UsersForModalDto[];
+}
+
+export class UsersForModalDto {
+  id!: number;
+  userName!: string;
+  firstName!: string; 
+  lastName!: string;  
+}

@@ -31,9 +31,8 @@ export class EmployeeComponent implements OnInit {
   //dataList: EmployeeModelData[] = []; 
   dataList:MatTableDataSource<EmployeeModelData>=new MatTableDataSource<EmployeeModelData>;
 
-  constructor(
-    private formBuilder: FormBuilder, sharedService: SharedService, employeeService: EmployeeService, dialog: MatDialog) {
-  this._employeeService = employeeService; 
+  constructor(private formBuilder: FormBuilder, sharedService: SharedService, employeeService: EmployeeService, dialog: MatDialog) {
+    this._employeeService = employeeService; 
     this._sharedService = sharedService; 
     this._dialog = dialog; 
   }
@@ -47,8 +46,7 @@ export class EmployeeComponent implements OnInit {
   getGridList() {  
   
       this._employeeService.GetAllData().subscribe(
-        (data: EmployeeResponseModel) => {
-          debugger
+        (data: EmployeeResponseModel) => { 
           this.dataList = new MatTableDataSource(data.data)
         },
         (responseError: HttpErrorResponse) => { 

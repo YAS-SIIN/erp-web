@@ -9,6 +9,7 @@ import { EmployeeComponent } from './pages/employees/employee/employee.component
 import { RequestLeaveComponent } from './pages/inout/request-leave/request-leave.component';
 import { CartableComponent } from './pages/cartables/cartable/cartable.component';
 import { ChangePasswordComponent } from './pages/main/change-password/change-password.component';
+import { UsersRolesComponent } from './pages/admin/users-roles/users-roles.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
       { path: 'changepassword', component: ChangePasswordComponent, pathMatch: 'full' }, 
       { path: 'employees/employee', component: EmployeeComponent, pathMatch: 'full' },
       { path: 'inout/requestleave', component: RequestLeaveComponent, pathMatch: 'full' },
-      { path: 'cartables/cartable', component: CartableComponent, pathMatch: 'full' }
+      { path: 'cartables/cartable', component: CartableComponent, pathMatch: 'full' },
+      { path: 'admin/usersroles', component: UsersRolesComponent, pathMatch: 'full' }
     ]
   }, 
 ];

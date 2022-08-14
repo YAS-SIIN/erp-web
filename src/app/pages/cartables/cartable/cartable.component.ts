@@ -10,6 +10,7 @@ import { CartableBaseModel } from 'src/app/models/base-model';
 import { SPCartableListModelData, SPCartableListResponseModel } from 'src/app/models/cartables/cartable-model';
 import { ApiPath } from 'src/app/apiPath';
 import { environment } from 'src/environments/environment';
+import { MatTableDataSource } from '@angular/material/table';
  
  
 
@@ -37,9 +38,8 @@ export class CartableComponent implements OnInit {
   NewEditRowModel: SPCartableListModelData = new SPCartableListModelData; 
   RowModel: any; 
   CartableRequestModel: any; 
-  filterData: CartableBaseModel = new CartableBaseModel; 
-  dataList: SPCartableListModelData[] = []; 
- 
+  filterData: CartableBaseModel = new CartableBaseModel;  
+  dataList:MatTableDataSource<SPCartableListModelData>=new MatTableDataSource<SPCartableListModelData>;
 
   constructor(private formBuilder: FormBuilder, sharedService: SharedService, cartableService: CartableService, dialog: MatDialog) {
     this._cartableService = cartableService; 
@@ -58,7 +58,7 @@ export class CartableComponent implements OnInit {
     debugger
       this._cartableService.GetAllData(this.filterData).subscribe(
         (data: SPCartableListResponseModel) => { 
-          this.dataList = data.data
+          this.dataList = new MatTableDataSource(data.data)
         },
         (responseError: HttpErrorResponse) => { 
           this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
@@ -151,6 +151,13 @@ export class CartableComponent implements OnInit {
           });
     });    
   }
+
+  applyFilter(event: Event) {
+    debugger
+     const filterValue = (event.target as HTMLInputElement).value;
+     this.dataList.filter = filterValue
+  } 
+
   
 }
  

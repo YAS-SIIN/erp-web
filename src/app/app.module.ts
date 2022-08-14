@@ -47,6 +47,8 @@ import { EmployeeRegisterPanelComponent } from './pages/employees/employee/emplo
 import { RequestLeaveRegisterPanelComponent } from './pages/inout/request-leave/request-leave-register-panel/request-leave-register-panel.component';
 import { CartableComponent } from './pages/cartables/cartable/cartable.component';
 import { ChangePasswordComponent } from './pages/main/change-password/change-password.component';
+import { UsersRolesComponent } from './pages/admin/users-roles/users-roles.component';
+import { UsersDialogComponent } from './pages/others/users-dialog/users-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,8 +57,13 @@ import { ChangePasswordComponent } from './pages/main/change-password/change-pas
     MainComponent,
     ChangePasswordComponent,
     DashboardComponent, 
+
     ValidationMessageComponent,
+    
     ConfirmDialogComponent,
+    UsersDialogComponent,
+    
+    UsersRolesComponent,
     
     EmployeeComponent,
     EmployeeRegisterPanelComponent,

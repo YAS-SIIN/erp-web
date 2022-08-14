@@ -21,5 +21,3 @@ leaveDate!: string;
 mobileNo!: string;
 imaghePath!: string; 
 }
-
-  

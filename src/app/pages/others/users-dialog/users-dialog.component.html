@@ -1,0 +1,36 @@
+<div mat-dialog-content>
+ 
+  <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>list_alt</mat-icon> اطلاعات کاربران
+        </mat-panel-title> 
+      </mat-expansion-panel-header>
+
+      <mat-form-field appearance="outline">
+        <mat-label>جستجو</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="جستجو" #input> 
+      </mat-form-field>
+      <table mat-table class="mat-elevation-z8" [dataSource]="dataList" >
+          <ng-container matColumnDef="name">
+              <th  mat-header-cell *matHeaderCellDef> نام </th>
+              <td mat-cell *matCellDef="let datarow"> {{datarow.firstName}} {{datarow.lastName}} </td>
+          </ng-container>   
+          <ng-container matColumnDef="userName">
+            <th  mat-header-cell *matHeaderCellDef> نام کاربری </th>
+            <td mat-cell *matCellDef="let datarow"> {{datarow.userName}} </td>
+        </ng-container>   
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+      </table>
+      <!-- <mat-paginator [length]="paytotalCount" [pageSize]="paginationService.pageSize" [pageSizeOptions]="paginationService.selectItemsPerPage"
+          (page)="payonPageSwitch.emit($event)">
+      </mat-paginator> -->
+  
+  </mat-expansion-panel>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseModalClick()">بستن</button> 
+</div>

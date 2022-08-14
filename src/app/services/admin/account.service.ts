@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ApiPath } from 'src/app/apiPath';
 import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
 import { environment } from '../../../environments/environment';
-import { LoginDto, LoginResponseModel, ResetPasswordDto, SessionResponseModel } from '../../models/admin/account-model'; 
+import { LoginDto, LoginResponseModel, ResetPasswordDto, SessionResponseModel, UsersForModalResponseModel } from '../../models/admin/account-model'; 
 
 
 @Injectable({
@@ -23,6 +23,15 @@ export class AccountService implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  GetUsersForModal() {
+     
+    let url = `${this._controllerPath}/GetUsersForModal`;
+
+    return this._http.post<UsersForModalResponseModel>(url, {}, {
+     
+    });
   }
 
   IsAuthenticated() {

@@ -10,7 +10,7 @@
   </mat-grid-tile>
 </mat-grid-list>
  
-<div class="row" id="pnlFilter" class="panel" *ngIf="pnlFirstPage">
+<div id="pnlFilter" *ngIf="pnlFirstPage">
 
     <mat-expansion-panel [expanded]="false">
         <mat-expansion-panel-header>
@@ -59,7 +59,7 @@
 
 <br>
 
-<div class="row" id="pnlData" *ngIf="pnlFirstPage" class="panel">
+<div id="pnlData" *ngIf="pnlFirstPage">
 
   
   <mat-expansion-panel [expanded]="true">
@@ -68,14 +68,17 @@
           <mat-icon>list_alt</mat-icon> اطلاعات {{title}} 
         </mat-panel-title> 
       </mat-expansion-panel-header>
-     
+      <mat-form-field appearance="outline">
+        <mat-label>جستجو</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="جستجو" #input> 
+      </mat-form-field>
       <table mat-table matSort class="mat-elevation-z8" style="width: 100%;" [dataSource]="dataList" > 
           <ng-container matColumnDef="FormNameFa">
-            <th  mat-header-cell *matHeaderCellDef> کد درخواست </th>
+            <th  mat-header-cell *matHeaderCellDef> نوع درخواست </th>
             <td mat-cell *matCellDef="let datarow"> {{datarow.formNameFa}} </td>
           </ng-container>   
           <ng-container matColumnDef="signTitleFa">
-            <th  mat-header-cell *matHeaderCellDef>  نوع امضاء </th>
+            <th  mat-header-cell *matHeaderCellDef>  نوع امضاء درخواستی </th>
               <td mat-cell *matCellDef="let datarow">{{datarow.signTitleFa}} </td>
           </ng-container>   
           <ng-container matColumnDef="fieldCode">
@@ -111,7 +114,7 @@
 
 <br>
  
-<div class="row" id="pnlSign" class="panel" *ngIf="pnlSign">
+<div id="pnlSign" *ngIf="pnlSign">
 
   <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>

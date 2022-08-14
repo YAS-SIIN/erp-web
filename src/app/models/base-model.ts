@@ -14,3 +14,4 @@ export class CartableBaseModel {
   year: number = 0;
   status: number = 2; 
 }
+
