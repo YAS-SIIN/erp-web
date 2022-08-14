@@ -70,8 +70,7 @@ export class MainComponent implements OnInit {
     })
   }
 
-  GetAccountInfo() {
-    debugger
+  GetAccountInfo() { 
     this._accountService.GetAccountInfo().subscribe(
       (data: EmployeeResponseModel) => { 
        this.accountInfo = data.data;

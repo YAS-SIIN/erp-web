@@ -42,9 +42,16 @@ mat-expansion-panel {
 .example-container {
     height: 400px;
     overflow: auto !important;
-  }
-  thead {
-    background: #024158  !important;
-    color: #fff !important;
-  }
+}
+
+thead {
+    background: #3f51b5 !important; 
+}
  
+thead > tr > th { 
+    color: #fff !important;
+}
+ 
+table {
+    width:  100% !important;
+}

@@ -1,29 +1,25 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, NgForm } from '@angular/forms'; 
-import { SharedService } from '../../../services/shared/shared.service';
-import { EmployeeModelData, EmployeeResponseModel } from 'src/app/models/employees/employee-model';
-import { EmployeeService } from 'src/app/services/employees/employee.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog'; 
-import { RequestLeaveModelData } from 'src/app/models/request-leave/request-leave-model';
+import { SharedService } from '../../../services/shared/shared.service'; 
+import { ResetPasswordDto } from 'src/app/models/admin/account-model';
+import { AccountService } from 'src/app/services/admin/account.service';
  
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html'
 })
 export class ChangePasswordComponent implements OnInit {
-  title = 'مرخصی';
+  title = 'تغییر کلمه عبور';
 
   _sharedService: SharedService; 
+  _accountService: AccountService; 
  
- @Input() Model: RequestLeaveModelData = new RequestLeaveModelData; 
- @Input() showRegisterButton: boolean = false; 
- 
- @Output() submitClicked: EventEmitter<any> = new EventEmitter<any>();
+Model: ResetPasswordDto = new ResetPasswordDto; 
  
   constructor(
-    private formBuilder: FormBuilder, sharedService: SharedService) {
+    private formBuilder: FormBuilder, sharedService: SharedService, accountService: AccountService) {
       this._sharedService = sharedService; 
+      this._accountService = accountService; 
   }
  
  
@@ -31,8 +27,13 @@ export class ChangePasswordComponent implements OnInit {
   }
   
   onSubmitClick(form: NgForm) {
-    this.submitClicked.emit(form);
+debugger
+       this._accountService.ResetPassword(this.Model
+      ).subscribe(() => {
+        this._sharedService.toastSuccess("عملیات با موفقیت انجام شد"); 
+      }, (responseError) => {
+        this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);
+      });
   }
- 
-  }
+}
  
