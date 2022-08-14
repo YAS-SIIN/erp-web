@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../others/confirm-dialog/confirm-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
- 
+import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-employees-employee',
   templateUrl: './employee.component.html'
@@ -28,7 +28,7 @@ export class EmployeeComponent implements OnInit {
  
   displayedColumns: string[] = ['name', 'empoloyeeNo', 'status', 'description', 'actions'];
   NewEditRowModel: EmployeeModelData = new EmployeeModelData; 
-  //dataList: EmployeeModelData[] = []; 
+  dataListExcell: EmployeeModelData[] = []; 
   dataList:MatTableDataSource<EmployeeModelData>=new MatTableDataSource<EmployeeModelData>;
 
   constructor(
@@ -50,6 +50,7 @@ export class EmployeeComponent implements OnInit {
         (data: EmployeeResponseModel) => {
           debugger
           this.dataList = new MatTableDataSource(data.data)
+          this.dataListExcell = data.data
         },
         (responseError: HttpErrorResponse) => { 
           this._sharedService.toastError('خطایی در انجام عملیات رخ داده است' + ' | ' + responseError.error.error.error_description, `کد خطای ${responseError.error.error.error_code}`);      
@@ -193,6 +194,24 @@ export class EmployeeComponent implements OnInit {
      const filterValue = (event.target as HTMLInputElement).value;
      this.dataList.filter = filterValue
   } 
+  exportExcell(){
+    if (this.dataListExcell.length > 0) {
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.dataListExcell);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "ExportExcel");
+      });
+    }
+  }
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
 }
  
  
